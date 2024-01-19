@@ -1,0 +1,14 @@
+.logo-text {
+  font-size: 24px;
+  font-weight: bolder;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.custom-error-message {
+  margin: 5px 0; /* Customize the margin as per your preference */
+  padding: 10px;
+  border: 1px solid #dc3545; /* Red border color similar to Bootstrap's alert-danger */
+  background-color: #f8d7da; /* Background color similar to Bootstrap's alert-danger */
+  color: #721c24; /* Text color similar to Bootstrap's alert-danger */
+  border-radius: 0.25rem; /* Optional: Add border-radius for rounded corners */
+}

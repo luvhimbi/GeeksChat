@@ -1,0 +1,48 @@
+/* Add this to your main styles.css or component-specific styles file */
+
+.app-container {
+  display: flex;
+  background-color: #1f80a8;
+  height: 91vh;
+}
+
+.app-chat-container {
+  display: flex;
+  flex: 1;
+  margin: 0 -10px; /* Set a negative margin to remove the space between them */
+}
+
+.left {
+  width: 20%;
+  height: 100%;
+  background-color: whitesmoke;
+  border-right: 2px solid #ffffff; /* Add a white border to create a line */
+  overflow: auto;
+}
+
+.right {
+  width: 80%;
+  height: 100%;
+  background-color: whitesmoke;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-chatlist {
+  height: 100%; /* This will make the chat list occupy the full height */
+  /* Add any additional styles for your chat list */
+}
+
+.app-chat-header {
+  /* Add styles for your chat header if needed */
+}
+
+.app-chatarea {
+  flex: 1; /* This will make the chat area take up all available vertical space */
+  overflow-y: auto; /* Add vertical scrollbar if needed */
+}
+
+.app-chat-input {
+  margin-top: auto;
+  padding: 10px; /* Add padding for better visual appearance */
+}

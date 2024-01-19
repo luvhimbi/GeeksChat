@@ -1,0 +1,33 @@
+/* chat-header.component.css */
+
+/* Adjust the height, padding, and other styles as needed */
+.chat-header {
+  height: 60px; /* Set a fixed height for the chat header */
+  display: flex;
+  align-items: center;
+  padding: 20px; /* Adjust padding for better spacing */
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #ccc;
+}
+
+.profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #3498db;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.username {
+  font-weight: bold;
+}

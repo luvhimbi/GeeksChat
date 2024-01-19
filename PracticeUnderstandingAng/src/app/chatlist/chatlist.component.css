@@ -1,0 +1,55 @@
+/* chat-list.component.css */
+
+/* Adjust the height and width to fit your design */
+.chat-list {
+  flex: 1;
+  padding: 20px; /* Add padding for better spacing */
+  background-color: #f4f4f4; /* Add background color to the chat list */
+  overflow-y: auto; /* Enable vertical scrolling if the chat list content overflows */
+}
+
+.search-bar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.input-control {
+  padding: 5px;
+  width: 100px;
+}
+
+.chat-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  background-color: #fff; /* Add background color to each chat item */
+  padding: 10px; /* Add padding for better spacing */
+  border-radius: 8px; /* Add border-radius for rounded corners */
+}
+
+.profile-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #3498db;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.chat-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.username {
+  font-weight: bold;
+}
+
+.message {
+  color: #333;
+}

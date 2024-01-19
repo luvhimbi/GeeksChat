@@ -1,0 +1,28 @@
+/* chat-input.component.css */
+
+div {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+input {
+  flex: 1;
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  padding: 10px 15px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}

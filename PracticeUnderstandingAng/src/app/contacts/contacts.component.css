@@ -1,0 +1,58 @@
+/* contacts.component.css */
+.container {
+  padding-top: 20px;
+}
+
+.contact-item {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.profile-info,
+.username-email {
+  display: flex;
+  align-items: center;
+}
+
+.profile-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: purple; /* Use your preferred color */
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+}
+
+.name {
+  font-weight: bold;
+  margin-right: 20px;
+}
+
+h3 {
+  color: #333;
+  margin-right: 20px;
+}
+
+/* Adjust styles as needed */
+/* contacts.component.css */
+.profile-info:hover {
+  cursor: pointer;
+  background-color: #1f80a8; /* Add the background color you prefer */
+}
+
+.profile-info:hover .profile-circle {
+  background-color: #6cc3d5; /* Add the background color you prefer */
+}
+
+.profile-info:hover .name {
+  text-decoration: underline; /* Underline the name on hover */
+}

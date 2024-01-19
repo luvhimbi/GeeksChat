@@ -1,0 +1,32 @@
+<!-- contacts.component.html -->
+<app-side-navbar></app-side-navbar>
+<div class="container">
+  <h2>Contact List</h2>
+
+  <!-- Search Input -->
+  <input type="text" class="form-control mb-3" placeholder="Search contacts" [(ngModel)]="searchTerm" (input)="filterContacts()">
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Contact Name</th>
+      <th>Username</th>
+      <th>Email</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let contact of filteredContacts" (click)="startChat(contact)" (click)="openUserModal(contact)">
+      <td>
+        <div class="profile-info" (mouseenter)="onContactNameHover()" (mouseleave)="onContactNameLeave()">
+          <div class="profile-circle">{{ contact.contactedUser.username.charAt(0).toUpperCase() }}</div>
+          <div class="name">
+            <p>{{ contact.contactedUser.firstname }} {{ contact.contactedUser.lastname }}</p>
+          </div>
+        </div>
+      </td>
+      <td>{{ contact.contactedUser.username }}</td>
+      <td>{{ contact.contactedUser.email }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

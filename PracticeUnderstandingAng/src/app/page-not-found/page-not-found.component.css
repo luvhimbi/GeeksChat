@@ -1,0 +1,12 @@
+/* page-not-found.component.css */
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Set height to 100% of the viewport height */
+}
+
+.card {
+  width: 400px; /* Set a fixed width for the card */
+}

@@ -1,0 +1,34 @@
+
+.app-chatarea {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.message-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  max-width: 70%;
+  margin: 8px;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.other-person {
+  background-color: grey; /* Light gray background for messages from the other person */
+  align-self: flex-start;
+}
+
+.own {
+  background-color: #4caf50; /* Green background for your own messages */
+  color: white;
+  align-self: flex-end;
+}
+
+.sender {
+  font-weight: bold;
+  margin-bottom: 4px;
+}

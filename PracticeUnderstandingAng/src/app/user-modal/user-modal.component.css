@@ -1,0 +1,41 @@
+/* user-modal.component.css */
+.user-information {
+  text-align: center;
+  color:white;
+}
+
+.profile-and-names {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: purple; /* Bootstrap primary color */
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px; /* Adjust the margin as needed */
+}
+
+.names {
+  text-align: left; /* Align names to the left */
+}
+
+h2 {
+  color: white;
+}
+
+p {
+  margin: 10px 0;
+}
+
+.btn {
+  margin-top: 20px;
+}

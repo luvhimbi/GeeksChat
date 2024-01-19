@@ -1,0 +1,14 @@
+<!-- user-modal.component.html -->
+<div class="user-information">
+  <div class="profile-and-names">
+    <div class="profile-circle">
+      {{ data.contactedUser.firstname.charAt(0).toUpperCase() }}
+    </div>
+    <div class="names">
+      <h2>{{ data.contactedUser.firstname }} {{ data.contactedUser.lastname }}</h2>
+    </div>
+  </div>
+  <p class="fw-bold">Username: {{ data.contactedUser.username }}</p>
+  <p class="fw-bold">Email: {{ data.contactedUser.email }}</p>
+  <button class="btn btn-primary" ><i class="ri-message-2-fill"></i>Start Chat</button>
+</div>
