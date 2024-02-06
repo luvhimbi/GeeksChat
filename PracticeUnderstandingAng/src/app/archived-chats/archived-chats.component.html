@@ -1,0 +1,13 @@
+<app-side-navbar></app-side-navbar>
+<!-- archived-chats.component.html -->
+<div class="archived-chat-list">
+  <div *ngFor="let conversation of archivedChats" (click)="onSelect(conversation)">
+    <div class="profile-circle">{{ conversation.otherUserName.charAt(0) }}</div>
+    <div class="chat-details">
+      <div class="username">{{ conversation.otherUserName }}</div>
+      <div class="message">{{ conversation.lastMessage }}</div>
+      <!-- Additional archived chat details if needed -->
+    </div>
+  </div>
+</div>
+

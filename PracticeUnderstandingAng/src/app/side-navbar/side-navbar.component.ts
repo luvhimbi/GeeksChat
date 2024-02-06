@@ -21,7 +21,7 @@ export class SideNavbarComponent {
     password: ''
   };
 
-  constructor(private uService: UserService, private router: Router) {}
+  constructor(private uService: UserService, private router: Router,private userService:UserService) {}
 
   isLoginPage(): boolean {
     return this.router.url === '/login';
@@ -51,6 +51,8 @@ export class SideNavbarComponent {
       if (result.isConfirmed) {
         // User confirmed, proceed with logout
         localStorage.removeItem('userDetails');
+        const user = this.userService.currentUser();
+        this.userService.updateOnlineStatus(user.user_id, false);
         this.router.navigate(['login'], { queryParams: { logoutMessage: 'Logout successful. Redirecting to login page...' } });
       }
     });

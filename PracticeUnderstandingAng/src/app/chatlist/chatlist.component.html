@@ -1,59 +1,36 @@
 <div class="chat-list">
   <div class="search-bar">
-    <input type="text" class="form-control" placeholder="Search" />
+    <!-- Use ngModel for two-way data binding -->
+    <input type="text" class="form-control mb-3" placeholder="Search users" [(ngModel)]="searchTerm" />
   </div>
-  <div class="chat-item" (click)="onSelect('Talifhani')">
-    <div class="profile-circle">T</div>
-    <div class="chat-details">
-      <div class="username" >Talifhani</div>
-      <div class="message">Hello</div>
-    </div>
+  <div class="start-chat-div">
+    <button class="start-chat-button" routerLink="/contacts">+Start New Chat</button>
   </div>
 
-  <div class="chat-item">
-    <div class="profile-circle">T</div>
-    <div class="chat-details">
-      <div class="username">Talifhani</div>
-      <div class="message">Hello</div>
-    </div>
-  </div>
-  <div class="chat-item">
-    <div class="profile-circle">T</div>
-    <div class="chat-details">
-      <div class="username">Talifhani</div>
-      <div class="message">Hello</div>
-    </div>
+  <!-- Check if filteredConversations is empty to show an error message -->
+  <div *ngIf="filteredConversations.length === 0" class="error-message">
+    No results Found!
   </div>
 
-  <div class="chat-item">
-    <div class="profile-circle">T</div>
+  <!-- Use *ngFor to iterate over filteredConversations instead of conversations -->
+  <div class="chat-item" *ngFor="let conversation of filteredConversations" (click)="onSelect(conversation)">
+    <div class="profile-circle">{{ conversation.otherUserName.charAt(0) }}</div>
     <div class="chat-details">
-      <div class="username">Talifhani</div>
-      <div class="message">Hello</div>
+      <div class="username">{{ conversation.otherUserName }}</div>
+      <div class="message">{{ conversation.lastMessage }}</div>
     </div>
-  </div>
-
-  <div class="chat-item">
-    <div class="profile-circle">T</div>
-    <div class="chat-details">
-      <div class="username">Talifhani</div>
-      <div class="message">Hello</div>
-    </div>
-  </div>
-
-  <div class="chat-item">
-    <div class="profile-circle">T</div>
-    <div class="chat-details">
-      <div class="username">Talifhani</div>
-      <div class="message">Hello</div>
-    </div>
-  </div>
-
-  <div class="chat-item">
-    <div class="profile-circle">T</div>
-    <div class="chat-details">
-      <div class="username">Talifhani</div>
-      <div class="message">Hello</div>
-    </div>
+    <!-- Dropdown content -->
+    <button mat-icon-button (click)="onDropdownClick($event)" [matMenuTriggerFor]="dropdownMenu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-icon *ngIf="conversation.isPinned" class="pin-icon">push_pin</mat-icon>
+    <mat-menu #dropdownMenu="matMenu">
+      <button mat-menu-item>View Profile</button>
+      <button mat-menu-item>Block</button>
+      <button mat-menu-item (click)="onDeleteConversation(conversation.conversationId)">Delete</button>
+      <button mat-menu-item (click)="onTogglePinConversation(conversation)">
+        {{ conversation.isPinned ? 'Unpin' : 'Pin' }}
+      </button>
+    </mat-menu>
   </div>
 </div>

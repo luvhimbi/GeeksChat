@@ -1,6 +1,12 @@
-<div class="chat-header">
-  <div class="profile-pic">T</div>
+<div *ngIf="selectedConversation" class="chat-header">
+  <div class="profile-pic">{{ selectedConversation?.otherUserName?.charAt(0) }}</div>
   <div class="user-info">
-    <div class="username"> {{ userService.selectedUser}}</div>
+    <h3>{{ selectedConversation?.otherUserName }}</h3>
+    <p *ngIf="onlineStatus">Online</p>
+    <p *ngIf="!onlineStatus">Offline</p>
   </div>
 </div>
+
+
+
+

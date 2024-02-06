@@ -1,7 +1,8 @@
 /* user-modal.component.css */
 .user-information {
   text-align: center;
-  color:white;
+  color:black;
+  color:black;
 }
 
 .profile-and-names {
@@ -15,7 +16,7 @@
   height: 80px;
   border-radius: 50%;
   background-color: purple; /* Bootstrap primary color */
-  color: #fff;
+  color: white;
   font-size: 24px;
   font-weight: bold;
   display: flex;
@@ -29,7 +30,7 @@
 }
 
 h2 {
-  color: white;
+  color: black;
 }
 
 p {
@@ -39,3 +40,15 @@ p {
 .btn {
   margin-top: 20px;
 }
+/* profile-dialog.component.scss */
+
+:host {
+  display: block;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: black;
+}
+
+

@@ -2,7 +2,7 @@
 
 .app-container {
   display: flex;
-  background-color: #1f80a8;
+
   height: 91vh;
 }
 
@@ -13,16 +13,16 @@
 }
 
 .left {
-  width: 20%;
-  height: 100%;
+  width: 30%;
+  height: 94vh;
   background-color: whitesmoke;
   border-right: 2px solid #ffffff; /* Add a white border to create a line */
   overflow: auto;
 }
 
 .right {
-  width: 80%;
-  height: 100%;
+  width: 70%;
+  height: 94vh;
   background-color: whitesmoke;
   display: flex;
   flex-direction: column;
@@ -37,12 +37,10 @@
   /* Add styles for your chat header if needed */
 }
 
-.app-chatarea {
-  flex: 1; /* This will make the chat area take up all available vertical space */
-  overflow-y: auto; /* Add vertical scrollbar if needed */
-}
+
 
 .app-chat-input {
+  height: 100%;
   margin-top: auto;
   padding: 10px; /* Add padding for better visual appearance */
 }

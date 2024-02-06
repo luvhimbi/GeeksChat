@@ -11,7 +11,7 @@ export class UserService {
   private apiUrl = 'http://localhost:8080/api/user';
    selectedUser : string = "";
    registeredUsers?:User[]
-
+  private onlineStatusMap: Map<number, boolean> = new Map<number, boolean>();
   constructor(private http: HttpClient) { }
 
   register(userDetails: any): Observable<any> {
@@ -43,7 +43,13 @@ export class UserService {
   updateUserDetails(userId: number, updatedUser: User | undefined): Observable<User> {
     return this.http.put<User>(`${this.apiUrl}/${userId}`, updatedUser);
   }
-
+  updateOnlineStatus(userId: number, online: boolean): void {
+    this.onlineStatusMap.set(userId, online);
+    console.log(`Online status updated for user ${userId}: ${online}`);
+  }
+  getOnlineStatus(userId: number): boolean {
+    return this.onlineStatusMap.get(userId) || false;
+  }
   currentUser(): User {
     return JSON.parse(localStorage.getItem('userDetails') || '{}');
   }
@@ -64,6 +70,17 @@ export class UserService {
   }
   setSelectedUser(username : string){
     this.selectedUser = username;
+  }
+
+  getCurrentUserIDFromLocalStorage(): number | null {
+    const storedUser = localStorage.getItem('userDetails');
+
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      return user.user_id;
+    } else {
+      return null;
+    }
   }
 
 }

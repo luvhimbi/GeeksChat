@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginService } from '../login.service';
 import Swal from 'sweetalert2';
+import {UserService} from "../user.service";
 
 @Component({
   selector: 'app-login',
@@ -31,7 +32,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  constructor(private authService: LoginService, private router: Router, private route: ActivatedRoute) {
+  constructor(private authService: LoginService, private router: Router, private route: ActivatedRoute,private userService:UserService) {
     if (localStorage.getItem('userDetails') !== null) {
       this.router.navigate(['/home']);
     }
@@ -50,6 +51,9 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('userDetails', JSON.stringify(response));
             // Redirect to home page upon successful login
             this.router.navigate(['/home']);
+            const user = this.userService.currentUser();
+            this.userService.updateOnlineStatus(user.user_id, true);
+
           },
           (error) => {
             console.error('Error during login:', error);
@@ -69,6 +73,7 @@ export class LoginComponent implements OnInit {
             }
           }
         );
+
     } else {
 
       Swal.fire({

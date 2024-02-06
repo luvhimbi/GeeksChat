@@ -65,11 +65,5 @@ export class ContactsComponent implements OnInit {
 
   }
 
-  onContactNameHover() {
 
-  }
-
-  onContactNameLeave() {
-
-  }
 }

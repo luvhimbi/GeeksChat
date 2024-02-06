@@ -28,7 +28,14 @@ import { EditUserDetailsComponent } from './edit-user-details/edit-user-details.
 import { ChatInputComponent } from './chat-input/chat-input.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { UserModalComponent } from './user-modal/user-modal.component';
-
+import { NoconversationComponent } from './noconversation/noconversation.component';
+import { DatePipe } from '@angular/common';
+import {PickerComponent} from "@ctrl/ngx-emoji-mart";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {MatMenuModule} from "@angular/material/menu";
+import { ArchivedChatsComponent } from './archived-chats/archived-chats.component';
+import { ProfileDialogComponent } from './profile-dialog/profile-dialog.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -49,25 +56,29 @@ import { UserModalComponent } from './user-modal/user-modal.component';
     ChatInputComponent,
     ContactsComponent,
     UserModalComponent,
+    NoconversationComponent,
+    ArchivedChatsComponent,
+    ProfileDialogComponent
 
 
 
   ],
-    imports: [
-        MatSidenavModule,
-        MatToolbarModule,
-        MatToolbarModule,
-        MatButtonModule,
-        MatListModule,
-      MatDialogModule,
-        BrowserModule,
-        HttpClientModule,
-        FormsModule,
-        AppRoutingModule,
-        ReactiveFormsModule,
-        BrowserAnimationsModule, MatIconModule,MatInputModule
-    ],
-  providers: [],
+  imports: [
+    MatSnackBarModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatListModule,
+    MatDialogModule,
+    BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule, MatIconModule, MatInputModule, PickerComponent, NgbModule, MatMenuModule
+  ],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

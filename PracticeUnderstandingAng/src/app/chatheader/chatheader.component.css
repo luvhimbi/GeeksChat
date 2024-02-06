@@ -31,3 +31,11 @@
 .username {
   font-weight: bold;
 }
+/* Add this to your styles.css or component-specific styles file */
+.online {
+  color: green;
+}
+
+.offline {
+  color: red;
+}

@@ -15,6 +15,7 @@ import {ChatlistComponent} from "./chatlist/chatlist.component";
 import {AuthGuard} from "./auth.guard";
 import {EditUserDetailsComponent} from "./edit-user-details/edit-user-details.component";
 import {ContactsComponent} from "./contacts/contacts.component";
+import {ArchivedChatsComponent} from "./archived-chats/archived-chats.component";
 
 
 // Define your routes
@@ -28,7 +29,8 @@ const routes: Routes = [
   {path:'profile',component:AddProfileComponent},
   {path:'change-password',component:ChangePasswordComponent},
   {path:'edit',component:EditUserDetailsComponent},
-  {path:'contacts',component:ContactsComponent}
+  {path:'contacts',component:ContactsComponent},
+  {path:'Archive',component:ArchivedChatsComponent}
  // { path: '**', component: PageNotFoundComponent}
 ];
 

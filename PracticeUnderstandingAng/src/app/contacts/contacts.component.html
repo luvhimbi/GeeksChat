@@ -6,6 +6,11 @@
   <!-- Search Input -->
   <input type="text" class="form-control mb-3" placeholder="Search contacts" [(ngModel)]="searchTerm" (input)="filterContacts()">
 
+  <!-- Display error message if no users are found -->
+  <div *ngIf="filteredContacts.length === 0" class="alert alert-warning" >
+    No contacts found. Please try a different search term.
+  </div>
+
   <table class="table">
     <thead>
     <tr>
@@ -17,7 +22,7 @@
     <tbody>
     <tr *ngFor="let contact of filteredContacts" (click)="startChat(contact)" (click)="openUserModal(contact)">
       <td>
-        <div class="profile-info" (mouseenter)="onContactNameHover()" (mouseleave)="onContactNameLeave()">
+        <div class="profile-info" >
           <div class="profile-circle">{{ contact.contactedUser.username.charAt(0).toUpperCase() }}</div>
           <div class="name">
             <p>{{ contact.contactedUser.firstname }} {{ contact.contactedUser.lastname }}</p>
