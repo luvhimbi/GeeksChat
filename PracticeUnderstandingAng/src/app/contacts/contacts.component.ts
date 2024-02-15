@@ -21,12 +21,14 @@ export class ContactsComponent implements OnInit {
   ngOnInit(): void {
     // Fetch the list of contacts from the service
     const currentUserID = this.getCurrentUserIDFromLocalStorage();
-
+   console.log(currentUserID);
     if (currentUserID !== null) {
       this.userService.getAllContacts(currentUserID).subscribe(
         (contacts: Contact[]) => {
+          console.log('Contacts:', contacts);
           this.contacts = contacts;
           this.filteredContacts = contacts;
+
         },
         (error) => {
           console.error('Error fetching contacts:', error);

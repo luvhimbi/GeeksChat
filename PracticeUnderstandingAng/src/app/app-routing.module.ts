@@ -12,10 +12,12 @@ import {ForgetPasswordComponent} from "./forget-password/forget-password.compone
 import {AddProfileComponent} from "./add-profile/add-profile.component";
 import {ChangePasswordComponent} from "./change-password/change-password.component";
 import {ChatlistComponent} from "./chatlist/chatlist.component";
-import {AuthGuard} from "./auth.guard";
 import {EditUserDetailsComponent} from "./edit-user-details/edit-user-details.component";
 import {ContactsComponent} from "./contacts/contacts.component";
-import {ArchivedChatsComponent} from "./archived-chats/archived-chats.component";
+import {ForgetpasswordPageComponent} from "./forgetpassword-page/forgetpassword-page.component";
+import {VerificationCodeComponent} from "./verification-code/verification-code.component";
+import {TodoCreateComponent} from "./todo-create/todo-create.component";
+
 
 
 // Define your routes
@@ -25,12 +27,16 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   {path:'chat',component:ChatlistComponent},
   {path:'registeredUsers',component:RegisteredUsersComponent},
-  {path:'reset-password',component:ForgetPasswordComponent},
+  {path:'sendResetLink',component:ForgetPasswordComponent},
   {path:'profile',component:AddProfileComponent},
   {path:'change-password',component:ChangePasswordComponent},
   {path:'edit',component:EditUserDetailsComponent},
   {path:'contacts',component:ContactsComponent},
-  {path:'Archive',component:ArchivedChatsComponent}
+  {path:'forgetpassword',component:ForgetpasswordPageComponent}
+  ,{path:'verificationCode',component:VerificationCodeComponent},
+  {
+    path:"TaskManager",component:TodoCreateComponent
+  }
  // { path: '**', component: PageNotFoundComponent}
 ];
 

@@ -11,13 +11,12 @@ import {HttpClient} from "@angular/common/http";
   providedIn: 'root',
 })
 export class StompService {
-
+//variables i have
   private socket = new SockJS('http://localhost:8080/stomp-endpoint');
   private stompClient = Stomp.over(this.socket);
   private messagesSubjectMap: Map<string, Subject<MessageDTO>> = new Map();
-  private conversations: ConversationResponse[] = [];
   private baseUrl = 'http://localhost:8080/api/messages';
-
+// the constructor
   constructor(private http : HttpClient) {
 
     this.stompClient.debug = null;
@@ -28,6 +27,7 @@ export class StompService {
     });
   }
 
+  // how the users chats
   subscribeToConversations(conversations: ConversationResponse[]): void {
    console.log("subscribing " +conversations);
     for (const conversation of conversations) {
@@ -49,47 +49,31 @@ export class StompService {
 
 // Update the deleteMessage method in stomp.service.ts
 
-  deleteMessage(messageId: number): Observable<string> {
-    const url = `${this.baseUrl}/${messageId}`;
-    return this.http.delete(url, { responseType: 'text' }).pipe(
-      tap(
-        (response) => {
-          console.log('Delete response:', response);
-          // Assuming the response is plain text
-          if (response && response.includes('Message deleted successfully')) {
-            console.log('Message deleted successfully');
-          } else {
-            console.error('Unexpected response:', response);
-          }
-          // Remove the deleted message from the local list
-          for (const [conversationId, messageSubject] of this.messagesSubjectMap) {
-            this.messagesSubjectMap.set(
-              conversationId,
-              new Subject<MessageDTO>()
-            ); // Reset the subject to clear subscribers
-          }
-        },
-        (error) => {
-          console.error('Error deleting message:', error);
-        }
-      )
-    );
-  }
 
   getMessages(conversationId: string): Observable<MessageDTO> {
     return this.messagesSubjectMap.get(conversationId)!.asObservable();
   }
-
+  togglePinConversation(conversationId: string): Observable<any> {
+    const url = `${this.baseUrl}/conversations/${conversationId}/pin`;
+    return this.http.put(url, null);
+  }
   sendMessage(message: MessageDTO): void {
+
     console.log("sending part 2" + message.conversation)
     this.stompClient.send(`/app/send-message/${message.conversation}`, {}, JSON.stringify(message));
   }
-
+  getLastMessage(conversationId: string): Observable<string> {
+    const url = `${this.baseUrl}/last/${conversationId}`;
+    return this.http.get<string>(url);
+  }
   getOldMessages(conversationId: string): Observable<MessageDTO[]> {
     const url = `${this.baseUrl}/old/${conversationId}`;
     return this.http.get<MessageDTO[]>(url);
   }
-
+  deleteChat(conversationId: string): Observable<void> {
+    const url = `${this.baseUrl}/${conversationId}`;
+    return this.http.delete<void>(url);
+  }
   fetchAndSubscribeToOldMessages(conversationId: string): void {
     // Assume you have a service to fetch old messages from the database
     this.getOldMessages(conversationId).subscribe(
@@ -118,6 +102,7 @@ export interface MessageDTO {
   messageId: number;
   conversation: string;
   sender: number;
+  reciever:number;
   message: string;
   timestamp: Date;
 }

@@ -1,43 +1,47 @@
 <div class="container">
   <ng-container *ngIf="selectedConversation">
+
     <div class="chat-box" #chatBox>
       <div class="scroll-arrows">
         <button class="arrow-button" (click)="scrollUp()"><i class="ri-arrow-up-s-line"></i></button>
         <button class="arrow-button" (click)="scrollDown()"><i class="ri-arrow-down-s-line"></i></button>
       </div>
-      <ul *ngIf="messagesMap.has(selectedConversation.conversationId)" class="list-group message-list">
-        <li *ngFor="let message of messagesMap.get(selectedConversation.conversationId)!">
+
+      <ng-container *ngIf="messagesMap.has(selectedConversation.conversationId)">
+        <ng-container *ngFor="let message of messagesMap.get(selectedConversation.conversationId)!; let i = index">
+
+          <ng-container *ngIf="i === 0 || isDifferentDay(message, messagesMap.get(selectedConversation.conversationId)![i - 1])">
+            <div class="day-divider">{{ getFormattedDate(message.timestamp) }}</div>
+          </ng-container>
+
           <div [ngClass]="getMessageBubbleClasses(message)" class="list-group-item message-bubble">
             <div *ngIf="isCurrentUser(message.sender)" class="avatar">{{ currentUser?.firstname?.charAt(0)}}</div>
-            <div *ngIf="!isCurrentUser(message.sender)" class="avatar">{{ selectedConversation?.otherUserName?.charAt(0) }}</div>
+            <div *ngIf="!isCurrentUser(message.sender)" class="avatar">{{ selectedConversation.otherUserName.charAt(0) }}</div>
             <div class="message-content">
               <p>{{ message.message }}</p>
-              <small class="text-muted">{{ getFormattedDate(message.timestamp) }}, {{ formatTimestamp(message.timestamp) | date: 'shortTime' }}</small>
+              <small class="text-muted">{{ getFormattedDate(message.timestamp) }}, {{ message.timestamp | date: 'shortTime' }}</small>
 
-              <!-- Add the dropdown button -->
-              <button mat-icon-button [matMenuTriggerFor]="messageDropdownMenu">
-                <i class="ri-more-2-fill"></i> <!-- Replace this with your preferred icon -->
-              </button>
-              <mat-menu #messageDropdownMenu="matMenu"  xPosition="after">
-                <button mat-menu-item >Reply</button>
-                <button mat-menu-item>Edit</button>
-                <button mat-menu-item>Forward</button>
-                <button mat-menu-item (click)="onDeleteClick(message)"  >Delete</button>
-                <!-- Add more menu items as needed -->
-              </mat-menu>
             </div>
           </div>
-        </li>
-      </ul>
+
+        </ng-container>
+      </ng-container>
+
     </div>
 
     <div class="input-box input-group">
       <input [(ngModel)]="message" class="form-control" placeholder="Type your message..." />
-      <button (click)="sendMessage()" class="btn btn-primary"><i class="ri-arrow-up-line"></i></button>
+      <button (click)="toggleEmojiPicker()" class="emoji-button">😀</button>
+      <br /><emoji-mart
+      class="emoji-mart"
+      *ngIf="isEmojiPickerVisible"
+      (emojiSelect)="addEmoji($event)"
+      title="Choose your emoji"
+    ></emoji-mart>
+      <button (click)="sendMessage()" class="send-button"><i class="ri-send-plane-fill"></i></button>
     </div>
   </ng-container>
 
-  <!-- Display a message if there is no selected conversation -->
   <div *ngIf="!selectedConversation" class="no-conversation-message">
     <p class="text-info text-center fw-bold">Geeks chat</p>
     <p>Please click on a conversation or start a new chat to send a message.</p>

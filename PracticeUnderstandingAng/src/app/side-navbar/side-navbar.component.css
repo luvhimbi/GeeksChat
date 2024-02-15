@@ -1,4 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;500&display=swap');
+
 .avatar-circle {
-  width: 32px;
+  width: 30px;
+  border-radius: 5px;
   background-color: #1f80a8;
+}
+/* Add these styles to your CSS */
+
+nav {
+  font-family: 'Poppins', sans-serif;
+  transition: background-color 0.3s ease; /* Add a smooth transition effect */
+}
+
+nav:hover {
+  background-color: #7fc5e6; /* Adjust the color as needed for hover effect */
+}
+
+nav:active {
+  background-color: #7fc5e6; /* Adjust the color as needed for active effect */
+}
+.navbar-nav .nav-link {
+  margin-right: 20px; /* Adjust the margin as needed to increase space between links */
 }

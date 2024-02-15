@@ -2,6 +2,7 @@ package com.example.basicapp.Repository;
 
 import com.example.basicapp.Entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -17,4 +18,8 @@ public interface UserRepository extends JpaRepository<User,Long> {
    @Query("SELECT u FROM User u WHERE u.user_id <> :userId")
    List<User> findAllByUserIdNot(@Param("userId") int userId);
    User findByUsername(String username);
+
+   @Query("SELECT u FROM User u WHERE u.resetToken = :token")
+   User findByResetToken(@Param("token") String token);
+
 }

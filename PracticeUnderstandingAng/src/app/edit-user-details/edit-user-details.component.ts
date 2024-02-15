@@ -3,7 +3,7 @@ import { User } from "../User";
 import { UserService } from "../user.service";
 import Swal from "sweetalert2";
 import {Router} from "@angular/router";
-
+import {EmojiEvent} from "@ctrl/ngx-emoji-mart/ngx-emoji";
 @Component({
   selector: 'app-edit-user-details',
   templateUrl: './edit-user-details.component.html',
@@ -24,6 +24,8 @@ export class EditUserDetailsComponent implements OnInit {
       this.user = JSON.parse(storedUserData);
     }
   }
+
+
 
   updateUserDetails(): void {
     // Check if user is defined before accessing user_id

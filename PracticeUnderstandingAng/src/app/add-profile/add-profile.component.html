@@ -1,33 +1,29 @@
+<!-- profile.component.html -->
 <app-side-navbar></app-side-navbar>
+
 <div *ngIf="userProfile" class="profile-container">
-  <div class="row">
-    <!-- Profile Details Column -->
-    <h2 class="text-center text-info">Account preferences</h2>
-    <div class="col-md-6">
-      <div class="border rounded p-3 mt-3 text-center">
-        <div class="profile-name">
-
-        <div class="profile-pic mb-3">{{ userProfile.firstname.charAt(0) }}</div>
-          <p class="mb-0 text-start">{{ userProfile.firstname }} {{ userProfile.lastname }}</p>
-        </div>
-        <div class="profile-info mt-3 text-start"> <!-- Updated to text-start for left alignment -->
-          <p class="mb-1"><strong>Username:</strong> {{ userProfile.username }}</p>
-          <p class="mb-1"><strong>Email:</strong> {{ userProfile.email }}</p>
-        </div>
+  <div class="header-section">
+    <h2 class="text-center text-info"><i class="ri-settings-4-fill"></i> Account Preferences</h2>
+  </div>
+  <div class="profile-section">
+    <div class="profile-details">
+      <div class="profile-pic">{{ userProfile.firstname.charAt(0) }}</div>
+      <div class="profile-name">
+        <p>{{ userProfile.firstname }} {{ userProfile.lastname }}</p>
       </div>
     </div>
-
-    <!-- Settings Column -->
-    <div class="col-md-6">
-      <div class="border rounded p-3 mt-3">
-        <h2 class="text-info">Settings</h2>
-        <ul class="list-group">
-          <li class="list-group-item"><a routerLink="/edit">Edit User Details</a></li>
-          <li class="list-group-item" ><a routerLink="/change-password">Change Password</a></li>
-          <button class="btn btn-outline-danger">Logout</button>
-        </ul>
-      </div>
+    <div class="profile-info">
+      <p><strong>Username:</strong> {{ userProfile.username }}</p>
+      <p><strong>Email:</strong> {{ userProfile.email }}</p>
     </div>
+  </div>
+
+  <div class="settings-section">
+    <h2 class="text-info">Settings <i class="ri-settings-3-fill"></i></h2>
+    <ul class="list-group">
+      <li class="list-group-item"><a routerLink="/edit">Edit User Details</a></li>
+      <li class="list-group-item"><a routerLink="/change-password">Change Password</a></li>
+    </ul>
   </div>
 </div>
 

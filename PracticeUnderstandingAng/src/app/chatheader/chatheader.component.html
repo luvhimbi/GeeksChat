@@ -1,10 +1,10 @@
 <div *ngIf="selectedConversation" class="chat-header">
-  <div class="profile-pic">{{ selectedConversation?.otherUserName?.charAt(0) }}</div>
+  <div class="profile-pic">{{ selectedConversation.otherUserName.charAt(0) }}</div>
   <div class="user-info">
-    <h3>{{ selectedConversation?.otherUserName }}</h3>
-    <p *ngIf="onlineStatus">Online</p>
-    <p *ngIf="!onlineStatus">Offline</p>
+    <h3>{{ selectedConversation.otherUserName }}</h3>
+
   </div>
+  <button class="delete-button" (click)="openConfirmationDialog()" >Delete Chat </button>
 </div>
 
 

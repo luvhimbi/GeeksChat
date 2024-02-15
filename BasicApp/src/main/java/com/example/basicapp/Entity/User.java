@@ -1,20 +1,21 @@
 package com.example.basicapp.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
-@Entity
+
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,9 +25,13 @@ public class User {
     private String email;
     private String username;
     private String password;
-
     @CreationTimestamp
     private Date createdAt;
+    private String resetToken;
+    private Date resetTokenExpiry;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+    @JsonIgnore
+    private List<Todo> todos;
 
 
 }

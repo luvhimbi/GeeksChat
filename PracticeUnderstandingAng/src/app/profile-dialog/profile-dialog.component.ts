@@ -9,4 +9,13 @@ import {User} from "../User";
 })
 export class ProfileDialogComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: User) {}
+  getRandomColor(): string {
+    // Generate a random color for the profile pic background
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
 }

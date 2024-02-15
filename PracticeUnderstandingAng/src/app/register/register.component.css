@@ -1,14 +1,65 @@
-.logo-text {
+/* Add this CSS to your styles.css or styles.scss file */
+
+.custom-card {
+  width: 100%;
+  max-width: 600px; /* Adjust the max-width as needed */
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding: 30px;
+}
+
+.custom-logo-text {
+  font-size: 28px;
+  color: #007bff;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.custom-error-message {
+  color: #721c24;
+  margin-top: 8px;
+}
+
+.custom-card-body {
+  margin-top: 30px;
+}
+
+.custom-form-group {
+  margin-bottom: 20px;
+}
+
+.custom-label {
+  font-weight: bold;
+}
+
+.custom-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.custom-button {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.large-text {
   font-size: 24px;
-  font-weight: bolder;
+  font-weight: bold;
+
+}
+.custom-welcome-message {
   text-align: center;
   margin-bottom: 20px;
 }
-.custom-error-message {
-  margin: 5px 0; /* Customize the margin as per your preference */
-  padding: 10px;
-  border: 1px solid #dc3545; /* Red border color similar to Bootstrap's alert-danger */
-  background-color: #f8d7da; /* Background color similar to Bootstrap's alert-danger */
-  color: #721c24; /* Text color similar to Bootstrap's alert-danger */
-  border-radius: 0.25rem; /* Optional: Add border-radius for rounded corners */
+
+.small-text {
+  font-size: 14px;
+  color: #555;
 }

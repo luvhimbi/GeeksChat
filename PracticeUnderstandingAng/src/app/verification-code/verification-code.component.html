@@ -1,0 +1,20 @@
+<!-- reset-password.component.html -->
+<div class="custom-container">
+  <div class="custom-card">
+    <div class="custom-content">
+      <p class="custom-subtitle">Enter Reset Code</p>
+      <p class="custom-logo-text">Geeks Chat</p>
+    </div>
+
+    <div class="custom-card-body">
+      <form (submit)="submitVerificationCode()">
+        <div class="custom-form-group">
+          <label for="resetCode" class="custom-label fw-bold">Reset Code:</label>
+          <input type="text" class="custom-input" id="resetCode" [(ngModel)]="enteredCode" [ngModelOptions]="{ standalone: true }" placeholder="Enter the code" required>
+        </div>
+
+        <button type="submit" class="custom-button btn btn-primary">Submit Code</button>
+      </form>
+    </div>
+  </div>
+</div>

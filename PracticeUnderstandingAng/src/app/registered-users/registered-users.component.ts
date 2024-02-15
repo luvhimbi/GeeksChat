@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {Contact, User} from "../User";
 import {UserService} from "../user.service";
 import Swal from "sweetalert2";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -15,7 +16,7 @@ export class RegisteredUsersComponent {
   selectedUser: User | null = null;
   scrolled = false;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService,private router:Router ) {
   }
 
 
@@ -48,9 +49,10 @@ export class RegisteredUsersComponent {
   }
 
 
+
   addToContact(user:User) {
     // Retrieve the current user ID from local storage
-    const currentUserID = this.getCurrentUserIDFromLocalStorage();
+    const currentUserID = this.userService.getCurrentUserIDFromLocalStorage();
     console.log(currentUserID)
     if (currentUserID !== null) {
       // Check if this.selectedUser is defined
@@ -68,6 +70,11 @@ export class RegisteredUsersComponent {
           },
           (error) => {
             console.error('Error adding contact:', error);
+            Swal.fire({
+              title: 'error',
+              text: 'contact already exists '+error,
+              icon: 'error',
+            });
           }
         );
 

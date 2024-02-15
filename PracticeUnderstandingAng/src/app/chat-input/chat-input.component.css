@@ -7,11 +7,14 @@
 
 .chat-box {
   width: 100%;
-  height: 78vh;
+  height: 80vh;
   overflow: auto;
   margin-bottom: 10px; /* Adjust the margin as needed */
 }
-
+.message-list {
+  list-style-type: none; /* Remove default list style */
+  padding: 0;
+}
 .input-box {
   display: flex;
   align-items: center;
@@ -25,13 +28,19 @@
   margin-right: 10px;
 }
 
-.message-list {
-  list-style-type: none; /* Remove default list style */
-  padding: 0;
+
+.emoji-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 5px; /* Adjust the margin for spacing */
 }
 
-.input-box button {
-  background-color: #4caf50;
+.send-button {
+  background-color: #007bff;
   color: white;
   border: none;
   padding: 8px 16px;
@@ -39,6 +48,104 @@
   cursor: pointer;
 }
 
+
+.emoji-mart {
+  position: absolute;
+  bottom: 100%; /* Adjust to your preference */
+  left: 0;
+  width: 30%;
+  z-index: 1; /* Ensure the emoji picker appears above other elements */
+  background-color: #fff; /* Background color */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.emoji-mart-emoji {
+  font-size: 30px; /* Adjust the font size */
+}
+.message-container {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 30px;
+  height: 30px;
+  background-color: #007bff;
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  font-size: 14px;
+  font-weight: bold;
+}
+/* Your custom styles or styles.css file */
+
+.container {
+  width: 100%;
+  position: relative;
+}
+
+.chat-box {
+  width: 100%;
+  height: 78vh;
+  overflow: auto;
+  margin-bottom: 10px; /* Adjust the margin as needed */
+}
+.message-list {
+  list-style-type: none; /* Remove default list style */
+  padding: 0;
+}
+.input-box {
+  display: flex;
+  align-items: center;
+}
+
+.input-box input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+
+.emoji-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 5px; /* Adjust the margin for spacing */
+}
+
+.send-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+.emoji-mart {
+  position: absolute;
+  bottom: 100%; /* Adjust to your preference */
+  left: 0;
+  width: 30%;
+  z-index: 1; /* Ensure the emoji picker appears above other elements */
+  background-color: #fff; /* Background color */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.emoji-mart-emoji {
+  font-size: 30px; /* Adjust the font size */
+}
 .message-container {
   display: flex;
   align-items: center;
@@ -73,6 +180,87 @@
   align-self: flex-start; /* Align received messages to the left */
   max-width: 60%; /* Adjust as needed */
 }
+
+.message-bubble {
+  margin-bottom: 10px;
+  padding: 8px;
+  border-radius: 8px;
+  word-wrap: break-word;
+  display: flex;
+  flex-grow: 1;
+
+}
+
+.scroll-arrows {
+  position: fixed;
+  top: 50%;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(-50%);
+  right: 10px; /* Adjust as needed */
+}
+
+.arrow-button {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  padding: 5px;
+  border-radius: 50%;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.arrow-button i {
+  font-size: 20px;
+}
+
+.arrow-up {
+  order: 2;
+}
+
+.arrow-down {
+  order: 1;
+}
+/* Add this to your existing styles or create a new CSS file */
+.no-conversation-message {
+  background-color: whitesmoke; /* Red background color, you can change it */
+  color: #721c24; /* Dark red text color, you can change it */
+  padding: 20px;
+  font-size: 20px;
+  margin-top: 10px;
+  border: 1px solid black; /* Light red border, you can change it */
+  border-radius: 4px;
+  font-family: 'Poppins',sans-serif;
+
+
+
+}
+
+
+
+/* Add these styles to your component-specific styles or global styles */
+.replied-message-view {
+  background-color: #f2f2f2;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+
+.day-divider {
+  display: block;
+  text-align: center;
+  padding: 8px;
+  background-color: #e0f7fa;
+  margin: 0 auto;
+  width: fit-content; /* Adjust the width to fit the content */
+  font-weight: bold;
+  font-family: 'Poppins',sans-serif;
+}
+
+
 
 .message-bubble {
   margin-bottom: 10px;
@@ -125,17 +313,30 @@
 
 
 }
-.mat-menu {
-  background-color: #fff; /* Adjust as needed */
+
+
+
+/* Add these styles to your component-specific styles or global styles */
+.replied-message-view {
+  background-color: #f2f2f2;
+  padding: 10px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
-.mat-menu-item {
-  color: #333;
+
+.day-divider {
+  display: block;
+  text-align: center;
+  padding: 8px;
+  background-color: #e0f7fa;
+  margin: 0 auto;
+  width: fit-content; /* Adjust the width to fit the content */
+  font-weight: bold;
+ font-family: 'Poppins',sans-serif;
 }
 
 
-
-
-/* Add any other styles as needed */

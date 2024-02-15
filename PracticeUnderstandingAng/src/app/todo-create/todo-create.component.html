@@ -1,0 +1,45 @@
+<!-- todo-create.component.html -->
+<app-side-navbar></app-side-navbar>
+
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h2>Geekschat TaskManager</h2>
+    <button (click)="showCreateForm()"><i class="ri-edit-line"></i>Create New Task</button>
+  </div>
+
+  <div class="task-summary-card">
+    <div class="summary-item">
+      <div class="card">
+        <h3><i class="ri-file-list-line"></i>Total Tasks</h3>
+        <p>{{ totalTasks }}</p>
+      </div>
+    </div>
+    <div class="summary-item">
+      <div class="card">
+        <h3><i class="ri-checkbox-circle-line"></i>Completed Tasks</h3>
+        <p>{{ completedTasks }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="tasks.length > 0">
+    <h3>Your Tasks</h3>
+    <ul class="task-list">
+      <li *ngFor="let task of tasks" [class.completed]="task.completed" [class.not-completed]="!task.completed">
+        <div class="task-item" [style.background-color]="task.color">
+          <span>{{ task.task }}</span>
+          <div class="date-range">
+            <i class="ri-time-line"></i>
+            <p class="date">Start: {{ formatDateString(task.startDate) }}</p>
+            <p class="date">End: {{ formatDateString(task.endDate) }}</p>
+          </div>
+          <button (click)="toggleCompletionStatus(task)">{{ task.completed ? 'Completed' : 'Not Completed' }}</button>
+          <button (click)="onDeleteTaskClick(task)" class="delete-button"><i class="ri-delete-bin-line"></i></button>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+
+  <!-- Other content as needed -->
+</div>

@@ -31,11 +31,17 @@ import { UserModalComponent } from './user-modal/user-modal.component';
 import { NoconversationComponent } from './noconversation/noconversation.component';
 import { DatePipe } from '@angular/common';
 import {PickerComponent} from "@ctrl/ngx-emoji-mart";
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {NgbModule, NgbToastModule} from '@ng-bootstrap/ng-bootstrap';
 import {MatMenuModule} from "@angular/material/menu";
-import { ArchivedChatsComponent } from './archived-chats/archived-chats.component';
 import { ProfileDialogComponent } from './profile-dialog/profile-dialog.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { PickerModule } from "@ctrl/ngx-emoji-mart";
+import { GroupChatComponent } from './group-chat/group-chat.component';
+import { EditUsernameDialogComponentComponent } from './edit-username-dialog-component/edit-username-dialog-component.component';
+import { ForgetpasswordPageComponent } from './forgetpassword-page/forgetpassword-page.component';
+import { VerificationCodeComponent } from './verification-code/verification-code.component';
+import { TodoCreateComponent } from './todo-create/todo-create.component';
+import { CreateTaskDialogComponent } from './create-task-dialog/create-task-dialog.component';
 
 @NgModule({
   declarations: [
@@ -57,13 +63,21 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     ContactsComponent,
     UserModalComponent,
     NoconversationComponent,
-    ArchivedChatsComponent,
-    ProfileDialogComponent
+
+    ProfileDialogComponent,
+    GroupChatComponent,
+    EditUsernameDialogComponentComponent,
+    ForgetpasswordPageComponent,
+    VerificationCodeComponent,
+    TodoCreateComponent,
+    CreateTaskDialogComponent
 
 
 
   ],
   imports: [
+    NgbToastModule,
+    PickerModule,
     MatSnackBarModule,
     MatSidenavModule,
     MatToolbarModule,

@@ -37,5 +37,11 @@ export class LoginService {
 
     return this.http.post(resetUrl, email);
   }
+  updatePassword(email: string, newPassword: string): Observable<any> {
+    const updatePasswordUrl = `${this.apiUrl}/update-password`;
+    const body = { email, newPassword };
+
+    return this.http.post(updatePasswordUrl, body);
+  }
 
 }

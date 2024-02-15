@@ -8,6 +8,7 @@ import { ProfileDialogComponent } from "../profile-dialog/profile-dialog.compone
 import { MatDialog } from "@angular/material/dialog";
 import { User } from "../User";
 import {Subject} from "rxjs";
+import {StompService} from "../stomp.service";
 
 @Component({
   selector: 'app-chatlist',
@@ -23,9 +24,11 @@ export class ChatlistComponent implements OnInit {
       private conversationService: ConversionServiceService,
       private chatService: ChatService,
       private cdr: ChangeDetectorRef,
-      private dialog: MatDialog
+      private dialog: MatDialog,
+      private userService:UserService,
+      private webSock:StompService
   ) {
-    this.loadConversationsFromStorage();
+
   }
 
   ngOnInit(): void {
@@ -35,7 +38,7 @@ export class ChatlistComponent implements OnInit {
     if (!this.conversations || this.conversations.length === 0) {
       this.conversationService.fetchConversations().subscribe(updatedConversations => {
         this.conversations = updatedConversations;
-        console.log(JSON.stringify(updatedConversations));
+
         this.cdr.detectChanges();
       });
     }
@@ -45,8 +48,19 @@ export class ChatlistComponent implements OnInit {
     event.stopPropagation(); // Prevent the click event from propagating to the parent div
   }
 
-  onViewProfile(user: User): void {
-    console.log(user);
+  onViewProfile(userId: number): void {
+    this.userService.getUserById(userId).subscribe(
+      (user) => {
+        console.log('User Information:', user);
+        this.openProfileDialog(user);
+      },
+      (error) => {
+        console.error('Error fetching user information:', error);
+      }
+    );
+  }
+
+  openProfileDialog(user: any): void {
     this.dialog.open(ProfileDialogComponent, {
       data: user,
       width: '400px', // Adjust the width as needed
@@ -57,20 +71,20 @@ export class ChatlistComponent implements OnInit {
 
   // Use a getter to filter and sort conversations based on the search term and pinning status
   get filteredConversations(): ConversationResponse[] {
-    return this.conversationService.conversations
-        .filter(conversation =>
-            conversation.otherUserName.toLowerCase().includes(this.searchTerm.toLowerCase())
-        )
-        .sort((a, b) => {
-          // Pinned conversations should come first
-          if (a.isPinned && !b.isPinned) {
-            return -1;
-          } else if (!a.isPinned && b.isPinned) {
-            return 1;
-          }
-          // For unpinned conversations, maintain their order
-          return 0;
-        });
+    return this.conversations
+      .filter(conversation =>
+        conversation.otherUserName.toLowerCase().includes(this.searchTerm.toLowerCase())
+      )
+      .sort((a, b) => {
+        // Pinned conversations should come first
+        if (a.isPinned && !b.isPinned) {
+          return -1;
+        } else if (!a.isPinned && b.isPinned) {
+          return 1;
+        }
+        // For unpinned conversations, maintain their order
+        return 0;
+      });
   }
 
 
@@ -79,26 +93,10 @@ export class ChatlistComponent implements OnInit {
     this.chatService.setSelectedConversation(conversation);
   }
 
-  onTogglePinConversation(conversation: ConversationResponse): void {
-    conversation.isPinned = !conversation.isPinned;
-    // Optionally, update your UI or backend to reflect the pinning/unpinning action
-  }
 
-  onDeleteConversation(conversationId: string): void {
-    // Call the deleteConversation method from the service
-    this.conversationService.deleteConversation(conversationId);
-    this.conversationService.saveConversationsToStorage();
-  }
-  private loadConversationsFromStorage(): void {
-    if (this.conversations.length === 0) {
-      const storedConversations = localStorage.getItem('conversations');
 
-      if (storedConversations) {
-        this.conversations = JSON.parse(storedConversations);
-        this.conversationsSubject.next([...this.conversations]);
-      }
-    }
-  }
+
+
 
 
 

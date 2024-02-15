@@ -1,11 +1,14 @@
 // user-modal.component.ts
 import {Component, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {Contact} from "../User";
 import {Router} from "@angular/router";
 import {ChatService} from "../chat.service";
 import {ConversationResponse} from "../conversation-response";
 import {ConversionServiceService} from "../conversion-service.service";
+import {
+  EditUsernameDialogComponentComponent
+} from "../edit-username-dialog-component/edit-username-dialog-component.component";
 
 @Component({
   selector: 'app-user-modal',
@@ -17,7 +20,7 @@ export class UserModalComponent {
               private router: Router,
               private dialogRef: MatDialogRef<UserModalComponent>,
               private chatService: ChatService,
-              private conversationService: ConversionServiceService) {}
+              private conversationService: ConversionServiceService,private dialog: MatDialog) {}
 
   startChatAndNavigate() {
     this.dialogRef.close();
@@ -29,4 +32,6 @@ export class UserModalComponent {
     this.conversationService.createConversation(this.data, initialMessage);
     this.router.navigate(['/home']);
   }
+
+
 }

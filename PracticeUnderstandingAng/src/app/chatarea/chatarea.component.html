@@ -1,9 +1,3 @@
-<!-- chatarea.component.html -->
-<div class="message-container">
-  <div *ngFor="let msg of messages" [ngClass]="{'other-person': msg.senderId !== 101, 'own': msg.senderId === 101}" class="message">
-    <span class="sender">{{ msg.senderId === 101 ? 'You' : 'Friend' }}:</span>
-    <p>{{ msg.message }}</p>
-  </div>
-</div>
+
 
 

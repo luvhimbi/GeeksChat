@@ -1,9 +1,11 @@
 package com.example.basicapp.Services;
 
 import com.example.basicapp.Entity.Contact;
+import com.example.basicapp.Entity.Conversation;
 import com.example.basicapp.Entity.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
     public User registerUser(User user);
@@ -15,6 +17,8 @@ public interface UserService {
     public List<User> getAllUsersExceptCurrentUser(int userId);
     public Contact addContact(Long userId, Long contactedUserId);
     public List<Contact> getAllContacts(Long userId);
+    public Optional<User> getUserById(Long userId);
+    public Conversation createNewRoom(Conversation conversation);
 
 
 }

@@ -1,0 +1,59 @@
+/* reset-password.component.css */
+.custom-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.custom-card {
+  width: 500px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding: 30px;
+}
+
+.custom-content {
+  margin-top: 30px;
+}
+
+.custom-subtitle {
+  font-size: 22px;
+}
+
+.custom-logo-text {
+  font-size: 28px;
+  color: #007bff;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.custom-card-body {
+  margin-top: 30px;
+}
+
+.custom-form-group {
+  margin-bottom: 30px;
+}
+
+.custom-label {
+  font-weight: bold;
+}
+
+.custom-input {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.custom-button {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}

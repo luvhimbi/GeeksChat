@@ -1,24 +1,33 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { ConversationResponse } from "./conversation-response";
+import {Conversation, ConversationResponse} from "./conversation-response";
 import { Contact } from "./User";
 import { UserService } from "./user.service";
 import { StompService } from "./stomp.service";
 import {ChatDataService} from "./chat-data.service";
+import {HttpClient} from "@angular/common/http";
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConversionServiceService {
+  private baseUrl = 'http://localhost:8080/api/conversations';
   public conversations: ConversationResponse[] = [];
   private contacts: Contact[] = [];
 
   private conversationsSubject: Subject<ConversationResponse[]> = new Subject<ConversationResponse[]>();
 
   constructor(private userService: UserService, private webSock: StompService ,
-              private chatdataService : ChatDataService) {
+              private chatdataService : ChatDataService,
+              private http : HttpClient) {
     this.getContacts();
+  }
+
+  createConversationRoom(conversation: Conversation): Observable<Conversation> {
+    console.log("conversations " + conversation);
+
+    return this.http.post<Conversation>(`${this.baseUrl}/create`, conversation);
   }
 
   getContacts() {
@@ -66,6 +75,13 @@ export class ConversionServiceService {
 
     console.log('Creating conversation: ', contact.contactedUser);
     const otherUser = contact.contactedUser;
+    let conv : Conversation = {
+      conversationId: "",
+      user1 : contact.user.user_id,
+      user2 : contact.contactedUser.user_id
+    };
+
+    this.createConversationRoom(conv);
     const existingConversation = this.findConversationWithUser(otherUser.user_id);
 
     if (existingConversation) {
@@ -76,24 +92,13 @@ export class ConversionServiceService {
 
     const conversationId = this.generateConversationId(contact.user.user_id, otherUser.user_id);
 
-    console.log("' fetching");
-
-    console.log("done fectching");
-
-    function shouldPinConversation(user_id: number) {
-
-        // Replace this with your criteria for pinning conversations
-        return otherUser.user_id === 1; // Pin conversations where the other user has user_id 1
-
-    }
-
     const conversation: ConversationResponse = {
       conversationId,
       otherUserId: otherUser.user_id,
       otherUserName: otherUser.username,
       lastMessage: initialMessage,
       lastMessageTimestamp: new Date().toISOString(),
-      isPinned: shouldPinConversation(otherUser.user_id), // Set based on your criteria
+      isPinned: false, // Set based on your criteria
       isArchived:false
 
     };
@@ -107,11 +112,29 @@ export class ConversionServiceService {
     // Notify observers about the change
     this.conversationsSubject.next([...this.conversations]);
 
-    this.saveConversationsToStorage();
+
 
     // Subscribe to the new conversation
     this.webSock.subscribeToConversations([conversation]);
 
+  }
+  deleteConversation(conversationId: string): void {
+    const index = this.conversations.findIndex(conv => conv.conversationId === conversationId);
+
+    if (index !== -1) {
+      // Remove the conversation from the array
+      this.conversations.splice(index, 1);
+
+      // Notify observers about the change
+      this.conversationsSubject.next([...this.conversations]);
+
+      // Add logic to unsubscribe or handle other cleanup tasks if needed
+      // ...
+
+      console.log(`Conversation with ID ${conversationId} deleted.`);
+    } else {
+      console.warn(`Conversation with ID ${conversationId} not found.`);
+    }
   }
 
   updateChatPermission(contactId : any) {
@@ -127,20 +150,33 @@ export class ConversionServiceService {
   }
 
   updateConversation(conversationId: string, newLastMessage: string): void {
+    // Update the last message and timestamp in the local conversation
     const conversation = this.conversations.find(conversation => conversation.conversationId === conversationId);
 
     if (conversation) {
-      // Update the last message and timestamp
       conversation.lastMessage = newLastMessage;
       conversation.lastMessageTimestamp = new Date().toISOString();
 
       // Notify observers about the change
       this.conversationsSubject.next([...this.conversations]);
+
+      // Now, fetch the actual last message from the backend
+      this.webSock.getLastMessage(conversationId).subscribe(
+        (lastMessageFromBackend: string) => {
+          // Update the local conversation with the actual last message from the backend
+          conversation.lastMessage = lastMessageFromBackend;
+            console.log(lastMessageFromBackend)
+          // Notify observers again after updating with the actual last message
+          this.conversationsSubject.next([...this.conversations]);
+        },
+        error => {
+          console.error('Error fetching last message:', error);
+        }
+      );
     } else {
       console.error('Conversation not found with ID:', conversationId);
     }
   }
-
   private findConversationWithUser(userId: number): ConversationResponse | undefined {
     return this.conversations.find(conversation => conversation.otherUserId === userId);
   }
@@ -150,50 +186,10 @@ export class ConversionServiceService {
     return `${sortedUsers[0]}_${sortedUsers[1]}`;
   }
 
-  saveConversationsToStorage() {
-    localStorage.setItem('conversations', JSON.stringify(this.conversations));
-  }
-  deleteConversation(conversationId: string): void {
-    console.log('Deleting conversation with ID:', conversationId)
-    // Find the index of the conversation to be deleted
-    const conversationIndex = this.conversations.findIndex(conversation => conversation.conversationId === conversationId);
 
-    if (conversationIndex !== -1) {
-      // Remove the conversation from the array
-      this.conversations.splice(conversationIndex, 1);
 
-      // Notify observers about the change
-      this.conversationsSubject.next([...this.conversations]);
 
-      // Save the updated conversations to localStorage
-      this.saveConversationsToStorage();
-      console.log('After deleting. Conversations:', this.conversations);
-    } else {
-      console.error('Conversation not found with ID:', conversationId);
-    }
-  }
 
-  archiveConversation(conversationId: string): void {
-    console.log('Archiving conversation with ID:', conversationId);
-
-    // Find the conversation to be archived
-    const conversationToArchive = this.conversations.find(conversation => conversation.conversationId === conversationId);
-
-    if (conversationToArchive) {
-      // Update the conversation properties for archiving
-      conversationToArchive.isArchived = true;
-
-      // Notify observers about the change
-      this.conversationsSubject.next([...this.conversations]);
-
-      // Save the updated conversations to localStorage
-      this.saveConversationsToStorage();
-
-      console.log('After archiving. Conversations:', this.conversations);
-    } else {
-      console.error('Conversation not found with ID:', conversationId);
-    }
-  }
   getArchivedConversations(): ConversationResponse[] {
     return this.conversations.filter(conversation => conversation.isArchived);
   }

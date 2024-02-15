@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-light" id="navbar-example" data-bs-theme="light" *ngIf="!isLoginPage() && !isRegisterPage()">
+<nav class="navbar navbar-expand-lg bg-white shadow " id="navbar-example" data-bs-theme="light" *ngIf="!isLoginPage() && !isRegisterPage()">
   <div class="container-fluid">
     <a class="navbar-brand text-info fw-bolder" href="#">Geeks Chat</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
@@ -7,31 +7,35 @@
     <div class="collapse navbar-collapse" id="navbarColor02">
       <ul class="navbar-nav mx-auto mr-4">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/home" >Chat</a>
+          <a class="nav-link" routerLink="/home" ><i class="ri-chat-3-fill"></i>Recent Chats</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/registeredUsers" >find new friends</a>
+          <a class="nav-link" routerLink="/registeredUsers" ><i class="ri-user-add-fill"></i>Find New Friends</a>
         </li>
-
         <li class="nav-item">
           <a class="nav-link" routerLink="/contacts">
-            contacts
+            <i class="ri-contacts-book-2-fill"></i>Contacts
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/Archive">
-      archived
+          <a class="nav-link" routerLink="/profile">
+            <i class="fa-solid fa-user"></i>Profile
           </a>
         </li>
+        <li>
+          <a class="nav-link" routerLink="/TaskManager">
+            <i class="ri-task-line"></i>Task manager
+          </a>
 
+        </li>
       </ul>
     </div>
     <div class="dropdown" style="margin-right: 130px;" *ngIf="currentUser">
+      {{currentUser.firstname}}
       <button class="btn btn-secondary dropdown-toggle rounded-circle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
         {{currentUser.firstname.charAt(0)}}
       </button>
       <ul class="dropdown-menu">
-        <li><p class="dropdown-item" routerLink="/profile">Profile</p></li>
         <li><p class="dropdown-item" (click)="onUserLogout()">Log out</p></li>
       </ul>
     </div>

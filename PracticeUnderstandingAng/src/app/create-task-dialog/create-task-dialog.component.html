@@ -1,0 +1,31 @@
+<!-- create-task-dialog.component.html -->
+<div class="dialog-container">
+  <h1>Create New Task</h1>
+
+  <form (ngSubmit)="onCreateTaskSubmit()">
+    <!-- Form fields for creating a new task -->
+    <div class="form-group">
+      <label for="task"><i class="fas fa-tasks"></i> Task:</label>
+      <input type="text" id="task" name="task" [(ngModel)]="newTask.task" required>
+    </div>
+
+    <div class="form-group">
+      <label for="taskdescription"><i class="fas fa-tasks"></i> TaskDescription:</label>
+      <input type="text" id="taskdescription" name="taskdescription" [(ngModel)]="newTask.taskdescription" required>
+    </div>
+    <div class="form-group">
+      <label for="startDate"><i class="far fa-calendar-alt"></i> Start Date:</label>
+      <input type="date" id="startDate" name="startDate" [(ngModel)]="newTask.startDate" required>
+    </div>
+
+    <div class="form-group">
+      <label for="endDate"><i class="far fa-calendar-alt"></i> End Date:</label>
+      <input type="date" id="endDate" name="endDate" [(ngModel)]="newTask.endDate" required>
+    </div>
+
+    <div class="button-group">
+      <button type="submit" class="create-button"><i class="far fa-check-circle"></i> Create Task</button>
+      <button type="button" (click)="onCancelClick()" class="cancel-button"><i class="far fa-times-circle"></i> Cancel</button>
+    </div>
+  </form>
+</div>

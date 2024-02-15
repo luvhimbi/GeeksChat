@@ -1,6 +1,14 @@
 <!-- profile-dialog.component.html -->
 
 
-<p>Email: {{ data.email }}</p>
-<p>Other details...</p>
-
+<div class="profile-container">
+  <div class="profile-pic" [style.background-color]="getRandomColor()">
+    {{ data.firstname.charAt(0) }}
+  </div>
+  <div class="user-details">
+    <p>Email: {{ data.email }}</p>
+    <p>First Name: {{ data.firstname }}</p>
+    <p>Last Name: {{ data.lastname }}</p>
+    <p>Username: {{ data.username }}</p>
+  </div>
+</div>

@@ -1,26 +1,29 @@
 /* chat-header.component.css */
 
-/* Adjust the height, padding, and other styles as needed */
 .chat-header {
-  height: 60px; /* Set a fixed height for the chat header */
+  height: 60px;
   display: flex;
   align-items: center;
-  padding: 20px; /* Adjust padding for better spacing */
-  background-color: #f0f0f0;
-  border-bottom: 1px solid #ccc;
+  padding: 15px 20px;
+  background-color: #3498db;
+  color: #fff;
+  border-bottom: 2px solid #2980b9;
+  font-family: 'Poppins', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .profile-pic {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  background-color: #3498db;
-  color: #fff;
+  background-color: #fff;
+  color: #3498db;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
-  margin-right: 10px;
+  font-size: 22px;
+  margin-right: 15px;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .user-info {
@@ -28,14 +31,57 @@
   flex-direction: column;
 }
 
-.username {
+h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.online,
+.offline {
   font-weight: bold;
 }
-/* Add this to your styles.css or component-specific styles file */
+
 .online {
-  color: green;
+  color: #2ecc71;
 }
 
 .offline {
-  color: red;
+  color: #e74c3c;
+}
+
+/* Improved hover effect for a more engaging experience */
+.chat-header:hover {
+  background-color: #2980b9;
+}
+
+.profile-pic:hover {
+  background-color: #3498db;
+  color: #fff;
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Improved transition for smoother effects */
+.chat-header,
+.profile-pic {
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Add a subtle shadow to the chat header for depth */
+.chat-header {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.delete-button {
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-left: auto; /* Align the button to the right */
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.delete-button:hover {
+  background-color: #c0392b;
 }

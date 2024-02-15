@@ -2,6 +2,7 @@ package com.example.basicapp.Controller;
 
 import com.example.basicapp.Dto.ChangePasswordRequest;
 import com.example.basicapp.Dto.LoginRequest;
+import com.example.basicapp.Dto.UpdatePasswordRequest;
 import com.example.basicapp.Dto.UserDto;
 import com.example.basicapp.Entity.Contact;
 import com.example.basicapp.Entity.User;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:4200", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE}, allowedHeaders = {"Authorization", "Content-Type"})
 @RestController
@@ -34,20 +36,26 @@ public class UserController {
 
 @Autowired
 private ForgetPasswordService forgetPasswordService;
-//this is a method which will add people when the add contact  is clicked!
+
+
+/**
+*@param is a method for adding a new contact into the users contact list
+ */
+
 
     @PostMapping("/add")
     public ResponseEntity<Contact> addContact(@RequestBody Map<String, Object> payload) {
         Long userId = ((Number) payload.get("user_id")).longValue();
         Long contactedUserId = ((Number) payload.get("contactedUserId")).longValue();
-            Contact newContact = userService.addContact(userId, contactedUserId);
-            return new ResponseEntity<>(newContact, HttpStatus.CREATED);
+        System.out.println(contactedUserId);
+        Contact newContact = userService.addContact(userId, contactedUserId);
+        return new ResponseEntity<>(newContact, HttpStatus.CREATED);
 
     }
-//this is a method which will get all contacts from the database
 
-    @GetMapping("/all")
-    public ResponseEntity<List<Contact>> getAllContacts(@RequestParam Long userId) {
+    @GetMapping("/all/{userId}")
+    public ResponseEntity<List<Contact>> getAllContacts(@PathVariable Long userId) {
+        System.out.println(userId);
         try {
             List<Contact> contacts = userService.getAllContacts(userId);
             return new ResponseEntity<>(contacts, HttpStatus.OK);
@@ -56,21 +64,33 @@ private ForgetPasswordService forgetPasswordService;
         }
     }
 
-    //this is method to get all registered users
+
+    /**
+     * @param it is a method for getting back all registered users in the system
+     * @return it returns a list of users
+     */
     @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.getAll();
         return ResponseEntity.ok(users);
     }
-    //this is a method to get all users except the currently logged in user
+
+    /**
+     *
+     * @param it is a method for getting back a list of users except the currently logged-in users
+     * @return it returns  a list of users
+     */
 
     @GetMapping("/except/{userId}")
     public ResponseEntity<List<User>> getAllUsersExceptCurrentUser(@PathVariable int userId) {
         List<User> users = userService.getAllUsersExceptCurrentUser(userId);
         return ResponseEntity.ok(users);
     }
-    //this is a method to update the users details
-    /*
+
+    /**
+     *
+     * @param it is a method for updating the user details
+     * @return  it returns the users updated details
 
      */
 
@@ -86,11 +106,18 @@ private ForgetPasswordService forgetPasswordService;
         }
     }
 
+
+    /**
+     *
+     * @param it is a method for when you are resetting the password
+     * @return
+     */
     @PostMapping("/reset")
     public ResponseEntity<?> initiatePasswordReset(@RequestBody String email) {
         try {
-            forgetPasswordService.initiatePasswordReset(email);
-            return ResponseEntity.ok(new Response("Password reset initiated. Check your email for further instructions."));
+            int resetCode = forgetPasswordService.initiatePasswordReset(email);
+            // Include the reset code in the response
+            return ResponseEntity.ok(resetCode);
         } catch (UserNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new Response("User not found."));
@@ -99,6 +126,12 @@ private ForgetPasswordService forgetPasswordService;
                     .body(new Response("Failed to initiate password reset. Please try again later."));
         }
     }
+
+    /**
+     *
+     * @param request
+     * @return
+     */
 
     @PutMapping("/change-password")
     public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequest request) {
@@ -111,6 +144,11 @@ private ForgetPasswordService forgetPasswordService;
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new Response("Invalid username or password"));
         }
     }
+/*
+this is a method for saving a user
+ */
+
+
     @PostMapping()
     public ResponseEntity<?> saveUSER(@Valid @RequestBody UserDto userDto) {
 
@@ -154,6 +192,8 @@ private ForgetPasswordService forgetPasswordService;
 
         return ResponseEntity.ok(userService.registerUser(user));
     }
+
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
@@ -164,6 +204,7 @@ private ForgetPasswordService forgetPasswordService;
         }
         return ResponseEntity.badRequest().body(errors);
     }
+
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
@@ -177,6 +218,19 @@ private ForgetPasswordService forgetPasswordService;
             return ResponseEntity.status(401).body("Invalid email or password");
         }
     }
+
+    @GetMapping("/users/{userId}")
+    public ResponseEntity<Optional<User>> getUserById(@PathVariable Long userId) {
+        Optional<User> user = userService.getUserById(userId);
+
+        if (user != null) {
+            return ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
     @AllArgsConstructor
     @NoArgsConstructor
     @Data
@@ -185,5 +239,7 @@ private ForgetPasswordService forgetPasswordService;
         private String msg;
 
 
+        public Response(String s, int resetCode) {
+        }
     }
 }

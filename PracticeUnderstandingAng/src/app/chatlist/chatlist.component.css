@@ -5,28 +5,39 @@
   padding: 20px;
   background-color: #f4f4f4;
   overflow-y: auto;
+  font-family: 'Poppins', sans-serif, Serif;
 }
 
 .search-bar {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  align-items: center; /* Improved alignment */
+  margin-bottom: 20px; /* Increased margin for better spacing */
+  font-family: 'Poppins', sans-serif, Serif;
 }
 
 .input-control {
-  padding: 5px;
-  width: 100px;
+  padding: 10px;
+  width: 200px; /* Increased width for better usability */
+  font-size: 14px; /* Adjusted font size for better readability */
 }
 
 .chat-item {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Adjusted for better alignment */
-  margin-bottom: 15px;
+  justify-content: space-between;
+  margin-bottom: 20px; /* Increased margin for better spacing */
   background-color: #fff;
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.chat-item:hover {
+  background-color: #ecf0f1;
 }
 
 .profile-circle {
@@ -49,39 +60,44 @@
 
 .username {
   font-weight: bold;
+  font-size: 16px; /* Adjusted font size for better readability */
 }
 
 .message {
-  color: #333;
+  color: #555; /* Adjusted color for better readability */
   overflow: hidden;
+  font-size: 14px; /* Adjusted font size for better readability */
 }
 
 .start-chat-button {
   background-color: #6cc3d5;
   color: #fff;
   border: none;
-  padding: 10px 20px;
+  padding: 12px 24px; /* Increased padding for better usability */
   border-radius: 5px;
   cursor: pointer;
+  font-family: 'Poppins', sans-serif, Serif;
+  transition: background-color 0.3s ease;
 }
 
 .start-chat-button:hover {
-  background-color: #6cc3d5;
+  background-color: #4d9fbf;
 }
 
 .start-chat-div {
-  padding: 9px 20px;
+  padding: 15px;
 }
 
 /* Styles for the dropdown */
 .mat-menu {
-  background-color: #fff; /* Adjust as needed */
+  background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .mat-menu-item {
   color: #333;
+  font-size: 14px; /* Adjusted font size for better readability */
 }
 
 /* Add these styles to your global styles or component-specific styles */
@@ -90,5 +106,221 @@
   font-weight: bold;
   background-color: #6cc3d5;
   padding: 10px;
-  margin-top: 10px;
+  margin-top: 20px; /* Increased margin for better spacing */
+}
+/* chat-list.component.css */
+
+/* ... (Previous styles remain unchanged) ... */
+
+/* Additional styles for improved user experience */
+
+.search-bar {
+  transition: margin 0.3s ease; /* Added transition for smooth animation */
+}
+
+.input-control:focus {
+  outline: none; /* Removed default focus outline for a cleaner look */
+}
+
+.chat-item .pin-icon {
+  font-size: 20px; /* Increased pin icon size for better visibility */
+  margin-left: 5px; /* Adjusted margin for better spacing */
+  color: #f39c12; /* Changed pin icon color to a contrasting shade */
+}
+
+/* Improved styles for the error message */
+.error-message {
+  color: white;
+  font-weight: bold;
+  background-color: #e74c3c; /* Changed error message background color */
+  padding: 15px;
+  margin-top: 20px;
+  border-radius: 8px;
+}
+
+/* Animation for chat item hover effect */
+.chat-item:hover .profile-circle {
+  transform: scale(1.1); /* Added scale effect on hover */
+}
+
+/* Animation for the start chat button hover effect */
+.start-chat-button:hover {
+  background-color: #4d9fbf;
+  transform: scale(1.05); /* Added scale effect on hover */
+}
+
+/* Animation for the dropdown menu items */
+.mat-menu-item {
+  transition: background-color 0.3s ease; /* Added transition for smooth animation */
+}
+
+.mat-menu-item:hover {
+  background-color: #f4f4f4; /* Changed background color on hover */
+}
+
+/* Improved styles for the loading spinner */
+.loading-spinner {
+  color: #3498db; /* Changed spinner color to a contrasting shade */
+}
+
+/* Added styles for the chat item delete button */
+.chat-item .delete-icon {
+  font-size: 20px;
+  color: #e74c3c;
+  cursor: pointer;
+  transition: color 0.3s ease; /* Added transition for smooth color change */
+}
+
+.chat-item:hover .delete-icon {
+  color: #c0392b; /* Changed delete icon color on hover */
+}
+/* chat-list.component.css */
+
+/* ... (Previous styles remain unchanged) ... */
+
+/* Additional styles for improved user experience */
+
+/* Animation for the chat item on selection */
+.chat-item.selected {
+  background-color: #3498db; /* Change background color when selected */
+  color: #fff; /* Change text color when selected */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Added transition for smooth animation */
+}
+
+/* Animation for the chat item on deletion */
+.chat-item.deleting {
+  opacity: 0; /* Fade out deleted items */
+  transition: opacity 0.5s ease; /* Added transition for smooth fade-out */
+}
+
+/* Improved styles for the loading spinner */
+.loading-spinner {
+  color: #3498db; /* Changed spinner color to a contrasting shade */
+  margin-right: 5px; /* Adjusted margin for better spacing */
+  animation: spin 1s linear infinite; /* Added a spinning animation */
+}
+
+/* Keyframe animation for spinning */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Animation for the chat item delete button */
+.chat-item .delete-icon {
+  font-size: 20px;
+  color: #e74c3c;
+  cursor: pointer;
+  transition: color 0.3s ease; /* Added transition for smooth color change */
+}
+
+.chat-item:hover .delete-icon {
+  color: #c0392b; /* Changed delete icon color on hover */
+}
+
+/* Animation for the dropdown menu items */
+.mat-menu-item {
+  transition: background-color 0.3s ease, color 0.3s ease; /* Added transition for smooth animation */
+}
+
+.mat-menu-item:hover {
+  background-color: #f4f4f4; /* Changed background color on hover */
+  color: #333; /* Changed text color on hover */
+}
+/* chat-list.component.css */
+
+/* ... (Previous styles remain unchanged) ... */
+
+/* Additional styles for improved user experience */
+
+/* Animation for the chat item on selection */
+.chat-item.selected {
+  background-color: #3498db; /* Change background color when selected */
+  color: #fff; /* Change text color when selected */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Added transition for smooth animation */
+}
+
+/* Animation for the chat item on deletion */
+.chat-item.deleting {
+  opacity: 0; /* Fade out deleted items */
+  transition: opacity 0.5s ease; /* Added transition for smooth fade-out */
+}
+
+/* Improved styles for the loading spinner */
+.loading-spinner {
+  color: #3498db; /* Changed spinner color to a contrasting shade */
+  margin-right: 5px; /* Adjusted margin for better spacing */
+  animation: spin 1s linear infinite; /* Added a spinning animation */
+}
+
+/* Keyframe animation for spinning */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Animation for the chat item delete button */
+.chat-item .delete-icon {
+  font-size: 20px;
+  color: #e74c3c;
+  cursor: pointer;
+  transition: color 0.3s ease; /* Added transition for smooth color change */
+}
+
+.chat-item:hover .delete-icon {
+  color: #c0392b; /* Changed delete icon color on hover */
+}
+
+/* Animation for the dropdown menu items */
+.mat-menu-item {
+  transition: background-color 0.3s ease, color 0.3s ease; /* Added transition for smooth animation */
+  cursor: pointer; /* Added cursor pointer for better indication */
+  padding: 8px 16px; /* Adjusted padding for better spacing */
+}
+
+.mat-menu-item:hover {
+  background-color: #f4f4f4; /* Changed background color on hover */
+  color: #333; /* Changed text color on hover */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Added transition for smooth hover effect */
+}
+
+/* Improved styles for the dropdown trigger button */
+.mat-menu-trigger {
+  cursor: pointer; /* Added cursor pointer for better indication */
+}
+
+/* Animation for the chat item on hover */
+.chat-item:hover {
+  background-color: #ecf0f1; /* Adjust the color as needed */
+  transition: background-color 0.3s ease; /* Added a smooth transition effect */
+  cursor: pointer; /* Change the cursor to indicate it's clickable */
+}
+
+/* Improved styles for the start chat button */
+.start-chat-button {
+  background-color: #3498db; /* Changed button color to a contrasting shade */
+  color: #fff; /* Changed text color for better visibility */
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif, Serif;
+  transition: background-color 0.3s ease; /* Added transition for smooth hover effect */
+}
+
+.start-chat-button:hover {
+  background-color: #2980b9; /* Adjusted hover color for better feedback */
+}
+
+.start-chat-div {
+  padding: 9px 20px;
+  margin-top: -10px; /* Adjust the margin-top value to move the button up */
 }

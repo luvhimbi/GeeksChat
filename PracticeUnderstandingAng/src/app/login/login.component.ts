@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LoginService } from '../login.service';
 import Swal from 'sweetalert2';
 import {UserService} from "../user.service";
+import {NgbToast} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit {
   password: string = '';
   errorMessage: string | null = null;
   logoutMessage: string | null = null;
-
+  private ngbToast!: NgbToast
   ngOnInit(): void {
     // Check for query parameter
     this.route.queryParams.subscribe((params) => {
@@ -53,6 +54,8 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/home']);
             const user = this.userService.currentUser();
             this.userService.updateOnlineStatus(user.user_id, true);
+            // @ts-ignore
+            this.ngbToast.show('Login successful', { delay: 5000, autohide: true, variant: 'success' });
 
           },
           (error) => {

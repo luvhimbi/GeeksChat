@@ -12,4 +12,6 @@ public interface ContactRepository extends JpaRepository<Contact,Long> {
     Optional<Contact> findByUserAndContactedUser(User user, User contactedUser);
 
     List<Contact> findAllByUser(User user);
+
+
 }

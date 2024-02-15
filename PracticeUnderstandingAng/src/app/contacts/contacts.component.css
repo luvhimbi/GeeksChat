@@ -1,58 +1,242 @@
-/* contacts.component.css */
+/* Add this CSS in your global styles or contacts.component.css file */
+
 .container {
-  padding-top: 20px;
+  max-width: 800px;
+  margin-top: 35px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.contact-item {
-  border: 1px solid #ddd;
-  padding: 15px;
+.page-title {
+  font-size: 24px;
+  color: #007bff;
   margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 }
 
-.profile-info,
-.username-email {
+.search-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  font-size: 14px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+
+.contacts-table {
+  width: 100%;
+}
+
+.table th, .table td {
+  text-align: center;
+}
+
+.table th {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f2f2f2;
+}
+
+.profile-info {
   display: flex;
   align-items: center;
 }
 
 .profile-circle {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background-color: purple; /* Use your preferred color */
-  color: #fff;
   font-size: 24px;
-  font-weight: bold;
+  width: 40px;
+  height: 40px;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 20px;
+  margin-right: 10px;
 }
 
 .name {
-  font-weight: bold;
-  margin-right: 20px;
-}
-
-h3 {
+  font-size: 16px;
   color: #333;
-  margin-right: 20px;
 }
 
-/* Adjust styles as needed */
-/* contacts.component.css */
+.alert-warning {
+  margin-top: 20px;
+  background-color: #ffc107;
+  color: #333;
+  padding: 10px;
+  border: 1px solid #ffc107;
+  border-radius: 5px;
+}
+
+/* Add a smooth transition effect */
 .profile-info:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s ease-in-out;
+}
+/* Add this CSS in your global styles or contacts.component.css file */
+
+/* Add a subtle hover effect for better interaction */
+.table-hover tbody tr:hover {
+  background-color: #f2f2f2;
   cursor: pointer;
-  background-color: #1f80a8; /* Add the background color you prefer */
 }
 
-.profile-info:hover .profile-circle {
-  background-color: #6cc3d5; /* Add the background color you prefer */
+/* Style the contact modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  align-items: center;
+  justify-content: center;
 }
 
-.profile-info:hover .name {
-  text-decoration: underline; /* Underline the name on hover */
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-title {
+  font-size: 20px;
+  color: #333;
+}
+
+.modal-close-btn {
+  font-size: 18px;
+  color: #007bff;
+  cursor: pointer;
+}
+
+/* Style the user profile in the contact modal */
+.contact-profile {
+  text-align: center;
+}
+
+.contact-profile-pic {
+  font-size: 60px;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.contact-name {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.contact-username {
+  font-size: 16px;
+  color: #777;
+}
+
+/* Style the start chat button */
+.start-chat-btn {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.start-chat-btn:hover {
+  background-color: #0056b3;
+}
+/* Add this CSS in your global styles or contacts.component.css file */
+
+/* Add spacing between table rows */
+.table tbody tr {
+  margin-bottom: 10px;
+}
+
+/* Style the search input */
+.form-control {
+  border-radius: 5px;
+}
+
+/* Add subtle shadow to table */
+.table {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Style the alert for no contacts found */
+.alert-warning {
+  background-color: #ffeeba; /* Bootstrap warning background color */
+  color: #856404; /* Bootstrap warning text color */
+  border-color: #ffeeba; /* Bootstrap warning border color */
+  border-radius: 5px;
+  padding: 15px;
+}
+
+/* Style the profile info in the table */
+.profile-info {
+  display: flex;
+  align-items: center;
+}
+
+.profile-circle {
+  font-size: 24px;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.name {
+  font-size: 16px;
+  color: #333;
+}
+
+/* Style the table header */
+.table thead th {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Style the chat button */
+.start-chat-btn {
+  background-color: #28a745; /* Bootstrap success button color */
+  color: #fff;
+  border: none;
+  padding: 8px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.start-chat-btn:hover {
+  background-color: #218838; /* Darker shade on hover */
 }

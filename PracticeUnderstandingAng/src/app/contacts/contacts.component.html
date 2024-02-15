@@ -1,17 +1,17 @@
 <!-- contacts.component.html -->
 <app-side-navbar></app-side-navbar>
 <div class="container">
-  <h2>Contact List</h2>
+  <h2 class="page-title"><i class="fa-solid fa-address-book"></i>Contact List</h2>
 
   <!-- Search Input -->
-  <input type="text" class="form-control mb-3" placeholder="Search contacts" [(ngModel)]="searchTerm" (input)="filterContacts()">
+  <input type="text" class="form-control search-input" placeholder="Search contacts" [(ngModel)]="searchTerm" (input)="filterContacts()">
 
   <!-- Display error message if no users are found -->
-  <div *ngIf="filteredContacts.length === 0" class="alert alert-warning" >
+  <div *ngIf="filteredContacts.length === 0" class="alert alert-warning">
     No contacts found. Please try a different search term.
   </div>
 
-  <table class="table">
+  <table class="table table-hover contacts-table">
     <thead>
     <tr>
       <th>Contact Name</th>
@@ -22,7 +22,7 @@
     <tbody>
     <tr *ngFor="let contact of filteredContacts" (click)="startChat(contact)" (click)="openUserModal(contact)">
       <td>
-        <div class="profile-info" >
+        <div class="profile-info">
           <div class="profile-circle">{{ contact.contactedUser.username.charAt(0).toUpperCase() }}</div>
           <div class="name">
             <p>{{ contact.contactedUser.firstname }} {{ contact.contactedUser.lastname }}</p>

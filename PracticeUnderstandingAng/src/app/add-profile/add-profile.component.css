@@ -1,32 +1,43 @@
-/* Add this CSS in your global styles or profile.component.css file */
+/* Add this CSS to your global styles or profile.component.css file */
 
 .profile-container {
-  background-color: #f8f9fa; /* Light gray background */
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft box shadow */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
 }
 
-.border {
-  border: 1px solid #ced4da; /* Bootstrap border color */
+.text-center {
+  text-align: center;
 }
 
-.rounded {
-  border-radius: 5px;
+.header-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
-.p-3 {
-  padding: 15px; /* Increased padding for a better appearance */
+.header-section i {
+  margin-right: 10px;
 }
 
-.mt-3 {
-  margin-top: 15px;
+.profile-section {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.profile-details,
+.profile-info {
+  text-align: center;
 }
 
 .profile-pic {
   font-size: 40px;
-  background-color: #007bff; /* Primary blue color */
-  color: #fff; /* White text */
+  background-color: #007bff;
+  color: #fff;
   border-radius: 50%;
   width: 70px;
   height: 70px;
@@ -36,30 +47,37 @@
   margin-bottom: 10px;
 }
 
-.profile-name {
-  font-size: 18px;
-}
-
-.profile-info {
-  margin-top: 10px;
-}
-
-/* Style for the Settings column */
-.list-group-item {
-  background-color: #007bff; /* Primary blue color */
-  color: #fff; /* White text */
-  border: none;
-  border-radius: 5px;
-  margin-bottom: 5px;
-}
-
 .profile-not-found {
-  color: #dc3545; /* Bootstrap danger color */
+  color: #dc3545;
   font-size: 18px;
   margin-top: 20px;
 }
-a{
-  text-decoration: none;
+
+.settings-section {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.list-group {
   list-style: none;
-  color: white;
+  padding: 0;
+  margin: 0;
+}
+
+.list-group-item {
+  border: none;
+  margin-bottom: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.list-group-item a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  padding: 10px;
+}
+
+.list-group-item:hover {
+  background-color: #f0f0f0;
 }

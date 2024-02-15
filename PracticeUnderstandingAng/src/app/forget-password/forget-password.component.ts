@@ -1,8 +1,11 @@
+// forget-password.component.ts
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { LoginService } from "../login.service";
 import Swal from 'sweetalert2';
-import {Router} from "@angular/router";
+import { Router } from "@angular/router";
+import { SharedServiceService } from "../Services/SharedService/shared-service.service";
+
 
 @Component({
   selector: 'app-forget-password',
@@ -12,8 +15,9 @@ import {Router} from "@angular/router";
 export class ForgetPasswordComponent {
   forgetPasswordForm: FormGroup;
   errorMessage: string | null = null;
+  resetCode: number | undefined;
 
-  constructor(private formBuilder: FormBuilder, private forgetPasswordService: LoginService,private router: Router) {
+  constructor(private formBuilder: FormBuilder, private forgetPasswordService: LoginService, private router: Router, private sharedService: SharedServiceService) {
     this.forgetPasswordForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]]
     });
@@ -21,21 +25,30 @@ export class ForgetPasswordComponent {
 
   initiatePasswordReset(): void {
     this.errorMessage = null;
+    console.log(this.forgetPasswordForm.get('email'))
     if (this.forgetPasswordForm.valid) {
       const userEmail = this.forgetPasswordForm.get('email')?.value;
       console.log(userEmail);
 
       // Call the service to send the email to the backend
       this.forgetPasswordService.initiatePasswordReset('' + userEmail).subscribe(
-        response => {
-          console.log('Reset email sent successfully:', response);
-          // Add any further logic here based on the backend response
+        (code: number) => {
+          this.resetCode = code;
+
+          console.log('Reset code received:', code);
+
+          // Add any further logic here based on the reset code
           Swal.fire({
             title: 'Success!',
-            text: 'Password reseted successfully .please check your email for new password',
+            text: 'An email has been sent with a reset code. Check your email for instructions.',
             icon: 'success',
           });
-          this.router.navigate(['login']);
+
+          // Store the reset code and email in localStorage
+          localStorage.setItem('resetCode', code.toString());
+          localStorage.setItem('resetEmail', userEmail);
+
+          this.router.navigate(['verificationCode']);
 
         },
         error => {

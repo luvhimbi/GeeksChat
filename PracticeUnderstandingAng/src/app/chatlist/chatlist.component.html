@@ -4,7 +4,7 @@
     <input type="text" class="form-control mb-3" placeholder="Search users" [(ngModel)]="searchTerm" />
   </div>
   <div class="start-chat-div">
-    <button class="start-chat-button" routerLink="/contacts">+Start New Chat</button>
+    <button class="start-chat-button" routerLink="/contacts"><i class="ri-add-circle-fill"></i>Start New Chat</button>
   </div>
 
   <!-- Check if filteredConversations is empty to show an error message -->
@@ -23,14 +23,8 @@
     <button mat-icon-button (click)="onDropdownClick($event)" [matMenuTriggerFor]="dropdownMenu">
       <mat-icon>more_vert</mat-icon>
     </button>
-    <mat-icon *ngIf="conversation.isPinned" class="pin-icon">push_pin</mat-icon>
     <mat-menu #dropdownMenu="matMenu">
-      <button mat-menu-item>View Profile</button>
-      <button mat-menu-item>Block</button>
-      <button mat-menu-item (click)="onDeleteConversation(conversation.conversationId)">Delete</button>
-      <button mat-menu-item (click)="onTogglePinConversation(conversation)">
-        {{ conversation.isPinned ? 'Unpin' : 'Pin' }}
-      </button>
+      <button mat-menu-item (click)="onViewProfile(conversation.otherUserId)">View Profile</button>
     </mat-menu>
   </div>
 </div>

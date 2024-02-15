@@ -19,4 +19,6 @@ export class Contact {
     this.contactedUser = contactedUser;
     this.canChat = canChat;
   }
+
+
 }

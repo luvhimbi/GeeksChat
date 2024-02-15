@@ -11,6 +11,7 @@ export class ChatService {
   public selectedConversation$: Observable<ConversationResponse | null> = this.selectedConversationSubject.asObservable();
 
   setSelectedConversation(conversation: ConversationResponse): void {
+    console.log(conversation);
     this.selectedConversationSubject.next(conversation);
   }
 

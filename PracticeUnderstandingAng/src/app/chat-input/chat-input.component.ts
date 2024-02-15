@@ -9,7 +9,7 @@ import { User } from '../User';
 import { UserService } from '../user.service';
 import { ConversionServiceService } from '../conversion-service.service';
 import {DatePipe} from "@angular/common";
-;
+import {EmojiEvent} from "@ctrl/ngx-emoji-mart/ngx-emoji";
 import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-chat-input',
@@ -23,19 +23,13 @@ export class ChatInputComponent implements OnInit, OnDestroy {
   currentUser: User | null = null;
   private subscription: Subscription | undefined;
   unreadMessageCount: number = 0;
-  highlightedMessages: Set<Message> = new Set<Message>();
+
+  public isEmojiPickerVisible: boolean = false;
+  selectedEmojis: string[] = [];
   @ViewChild('chatBox') chatBox: ElementRef | undefined;
 
-  showEmojiLibrary = false;
-  message1 = '';
 
-  toggleEmojiLibrary(): void {
-    this.showEmojiLibrary = !this.showEmojiLibrary;
-  }
 
-  insertEmoji(emoji: string): void {
-    this.message1 += emoji;
-  }
 
   constructor(
     private webSocketService: StompService,
@@ -53,6 +47,7 @@ export class ChatInputComponent implements OnInit, OnDestroy {
       this.subscription.unsubscribe();
     }
   }
+
 
   ngOnInit(): void {
 
@@ -92,37 +87,17 @@ export class ChatInputComponent implements OnInit, OnDestroy {
 
 
   }
-
-  onDeleteClick(message: Message): void {
-    // Handle the 'Delete' action
-
-
-    // Call the service to delete the message
-    this.webSock.deleteMessage(message.messageId).subscribe(
-      response => {
-        console.log(response); // Log success message
-        this.showDeleteSuccessToast(); // Show the success toast
-        // Optionally, update your UI to reflect the deletion
-      },
-      error => {
-        console.error('Error deleting message:', error);
-        this.showDeleteErrorToast(); // Show the error toast
-      }
-    );
+  public toggleEmojiPicker() {
+    this.isEmojiPickerVisible = !this.isEmojiPickerVisible;
   }
-  private showDeleteErrorToast(): void {
-    this.snackBar.open('Failed to delete message', 'Close', {
-      duration: 1000,
-      panelClass: ['toast-error'],
-    });
+  public addEmoji(event: EmojiEvent) {
+    this.message = `${this.message}${event.emoji.native}`;
+    this.isEmojiPickerVisible = false;
   }
 
-  private showDeleteSuccessToast(): void {
-    this.snackBar.open('Message deleted successfully', 'Close', {
-      duration: 1000, // Duration in milliseconds
-      panelClass: ['toast-success'], // You can define your own CSS class for styling
-    });
-  }
+
+
+
   scrollDown(): void {
     if (this.chatBox) {
       const chatBoxElement = this.chatBox.nativeElement;
@@ -138,12 +113,21 @@ export class ChatInputComponent implements OnInit, OnDestroy {
   }
 
   formatTimestamp(timestamp: Date): string {
-    if (timestamp) {
-      // Example: return this.datePipe.transform(timestamp, 'yyyy-MM-dd HH:mm:ss') || '';
-      return this.datePipe.transform(timestamp, 'medium') || ''; // Using the 'medium' format for simplicity
-    } else {
-      return ''; // Or any default value you want to return for null timestamps
-    }
+    return new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  }
+
+
+
+  isDifferentDay(message1: Message, message2: Message): boolean {
+    const date1 = new Date(message1.timestamp);
+    const date2 = new Date(message2.timestamp);
+
+    // Compare only the date parts (day, month, and year)
+    return (
+      date1.getDate() !== date2.getDate() ||
+      date1.getMonth() !== date2.getMonth() ||
+      date1.getFullYear() !== date2.getFullYear()
+    );
   }
 
   getFormattedDate(timestamp: Date): string {
@@ -167,13 +151,15 @@ export class ChatInputComponent implements OnInit, OnDestroy {
       return 'Yesterday';
     } else {
       // If neither today nor yesterday, format the full date
-      return this.datePipe.transform(messageDate, 'longDate') || '';
+      return this.datePipe.transform(messageDate, 'EEEE, MMMM d') || '';
     }
   }
+
 
   isCurrentUser(senderId: number): boolean {
     const currentUser = this.userService.getCurrentUserIDFromLocalStorage();
     return senderId === currentUser;
+
   }
 
   getMessageBubbleClasses(message: Message): { [key: string]: boolean } {
@@ -193,6 +179,7 @@ export class ChatInputComponent implements OnInit, OnDestroy {
           messageId: 0,
           conversation: this.selectedConversation.conversationId,
           sender: user,
+          reciever:this.selectedConversation.otherUserId,
           message: this.message,
           timestamp: new Date(),
           isSentByUser: true,
@@ -205,7 +192,10 @@ export class ChatInputComponent implements OnInit, OnDestroy {
     }
   }
 
+
+
 }
+
 
 // message.interface.ts
 
@@ -213,6 +203,7 @@ export interface Message {
   messageId: number;
   conversation: string;
   sender: number;
+  reciever:number;
   message: string;
   timestamp: Date;
   isSentByUser?: boolean; // New property to indicate if the message is sent by the user
