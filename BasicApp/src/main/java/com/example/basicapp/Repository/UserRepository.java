@@ -22,4 +22,13 @@ public interface UserRepository extends JpaRepository<User,Long> {
    @Query("SELECT u FROM User u WHERE u.resetToken = :token")
    User findByResetToken(@Param("token") String token);
 
+   @Query("SELECT COUNT(c) > 0 FROM Contact c " +
+           "JOIN c.user u " +
+           "WHERE u.user_id= :userId AND c.contact_id = :contactedUserId")
+   boolean existsByUserIdAndContactedUserId(
+           @Param("userId") Long userId,
+           @Param("contactedUserId") Long contactedUserId
+   );
+
+   User findUserByResetToken(String resetToken);
 }

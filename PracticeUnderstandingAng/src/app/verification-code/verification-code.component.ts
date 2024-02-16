@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { Router } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import Swal from "sweetalert2";
+import {UserService} from "../user.service";
 
 @Component({
   selector: 'app-verification-code',
@@ -15,7 +16,7 @@ export class VerificationCodeComponent {
   correctResetCode: number | undefined;
   enteredCode:number|undefined
 
-  constructor(private router: Router, private formBuilder: FormBuilder) {
+  constructor(private router: Router, private formBuilder: FormBuilder,private userService:UserService) {
     this.verificationForm = this.formBuilder.group({
       code: ['', [Validators.required, Validators.pattern(/^[0-9]+$/)]],
     });
@@ -27,17 +28,34 @@ export class VerificationCodeComponent {
   }
 
   submitVerificationCode(): void {
-    // Check if the entered code matches the correct reset code
-    if (this.enteredCode === this.correctResetCode) {
-      // Redirect to the page where the user can set a new password
-      this.router.navigate(['/set-new-password']);
-    } else {
-      // Display an error message if the code is invalid
-      Swal.fire({
-        title: 'Error!',
-        text: 'Invalid verification code. Please try again.',
-        icon: 'error',
-      });
+    if (this.verificationForm.valid) {
+      const enteredCode = this.verificationForm.get('code')?.value;
+   console.log(enteredCode)
+      // Use the service method to verify the reset code
+      this.userService.verifyResetCode(enteredCode).subscribe(
+        (isValid) => {
+          if (isValid) {
+            Swal.fire({
+              title: 'Success!',
+              text: 'Verification successful. Redirecting...',
+              icon: 'success',
+            }).then(() => {
+              // Redirect logic here
+              this.router.navigate(["forgetpassword"])
+            });
+          } else {
+            Swal.fire({
+              title: 'Error!',
+              text: 'Invalid verification code. Please try again.',
+              icon: 'error',
+            });
+          }
+        },
+        (error) => {
+          console.error('Error verifying reset code:', error);
+          // Handle the error as needed
+        }
+      );
     }
   }
 }

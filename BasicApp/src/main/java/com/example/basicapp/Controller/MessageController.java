@@ -39,8 +39,10 @@ public class MessageController {
     @MessageMapping("/send-message/{conveId}")
     @SendTo("/topic/received-message/{conveId}")
     public Message handleMessage(@DestinationVariable String conveId, @Payload Message message) {
+        System.out.println(conveId);
        //get the sender and reciever
          Optional<User> user1 = userRepository.findById(message.getSender().getUser_id());
+        System.out.println(user1.isPresent());
          Optional<User> user2 = userRepository.findById(message.getReceiver().getUser_id());
         // Fetch the conversation by ID
         int conversationId = Integer.parseInt(conveId);

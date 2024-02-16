@@ -70,7 +70,7 @@
 }
 
 .start-chat-button {
-  background-color: #6cc3d5;
+  background-color: #070F2B;
   color: #fff;
   border: none;
   padding: 12px 24px; /* Increased padding for better usability */
@@ -81,7 +81,7 @@
 }
 
 .start-chat-button:hover {
-  background-color: #4d9fbf;
+  background-color: #070F2B;
 }
 
 .start-chat-div {
@@ -145,7 +145,7 @@
 
 /* Animation for the start chat button hover effect */
 .start-chat-button:hover {
-  background-color: #4d9fbf;
+  background-color: #070F2B;
   transform: scale(1.05); /* Added scale effect on hover */
 }
 

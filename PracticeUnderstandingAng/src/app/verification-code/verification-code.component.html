@@ -7,14 +7,27 @@
     </div>
 
     <div class="custom-card-body">
-      <form (submit)="submitVerificationCode()">
-        <div class="custom-form-group">
+      <form (submit)="submitVerificationCode()" [formGroup]="verificationForm" class="custom-form">
+        <div class="custom-form-group" [ngClass]="{ 'has-error': verificationForm.get('code')?.hasError('required') && verificationForm.get('code')?.touched }">
           <label for="resetCode" class="custom-label fw-bold">Reset Code:</label>
-          <input type="text" class="custom-input" id="resetCode" [(ngModel)]="enteredCode" [ngModelOptions]="{ standalone: true }" placeholder="Enter the code" required>
+          <div class="input-with-icon">
+            <input type="text" class="custom-input" id="resetCode" formControlName="code" placeholder="Enter the code" required>
+            <i *ngIf="verificationForm.get('code')?.hasError('required') && verificationForm.get('code')?.touched" class="fas fa-exclamation-triangle error-icon"></i>
+          </div>
+          <div *ngIf="verificationForm.get('code')?.hasError('required') && verificationForm.get('code')?.touched" class="custom-error-message">
+            Code is required.
+          </div>
         </div>
 
-        <button type="submit" class="custom-button btn btn-primary">Submit Code</button>
+        <!-- Display a message about code expiration -->
+        <div class="custom-info-message">
+          The reset code will expire after 1 hour.
+        </div>
+
+        <button type="submit" class="custom-button" [disabled]="verificationForm.invalid">Submit Code</button>
+        <p>go back <a routerLink="/login">password</a></p>
       </form>
     </div>
   </div>
 </div>
+

@@ -28,4 +28,14 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleGenericException(Exception ex) {
         return new ResponseEntity<>("An error occurred on the server.", HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+
+
+        @ExceptionHandler(ContactAlreadyExistsException.class)
+        @ResponseStatus(HttpStatus.CONFLICT)
+        public ResponseEntity<String> handleContactAlreadyExistsException(ContactAlreadyExistsException ex) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+        }
+
+
 }

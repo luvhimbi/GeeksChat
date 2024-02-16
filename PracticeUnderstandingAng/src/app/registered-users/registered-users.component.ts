@@ -3,6 +3,7 @@ import {Contact, User} from "../User";
 import {UserService} from "../user.service";
 import Swal from "sweetalert2";
 import {Router} from "@angular/router";
+import {HttpErrorResponse} from "@angular/common/http";
 
 
 @Component({
@@ -50,38 +51,44 @@ export class RegisteredUsersComponent {
 
 
 
-  addToContact(user:User) {
-    // Retrieve the current user ID from local storage
+  addToContact(user: User) {
     const currentUserID = this.userService.getCurrentUserIDFromLocalStorage();
-    console.log(currentUserID)
-    if (currentUserID !== null) {
-      // Check if this.selectedUser is defined
-        const contactedUserId = user.user_id;
-        console.log(contactedUserId);
 
-        this.userService.addContact(currentUserID, contactedUserId).subscribe(
-          (response: Contact) => {
-            console.log('Contact added successfully:', response);
+    if (currentUserID !== null) {
+      const contactedUserId = user.user_id;
+
+      this.userService.addContact(currentUserID, contactedUserId).subscribe(
+        (response: Contact) => {
+          console.log('Contact added successfully:', response);
+          Swal.fire({
+            title: 'New contact added',
+            text: 'Contact added successfully',
+            icon: 'success',
+          });
+        },
+        (error) => {
+          console.error('Error adding contact:', error);
+
+          if (error instanceof HttpErrorResponse && error.error.includes('Contact already exists')) {
             Swal.fire({
-              title: 'New contact added',
-              text: 'contact added successfully',
-              icon: 'success',
+              title: 'Error',
+              text: 'Contact already exists',
+              icon: 'error',
             });
-          },
-          (error) => {
-            console.error('Error adding contact:', error);
+          } else {
             Swal.fire({
-              title: 'error',
-              text: 'contact already exists '+error,
+              title: 'Error',
+              text: 'An unexpected error occurred',
               icon: 'error',
             });
           }
-        );
-
+        }
+      );
     } else {
       console.error('Current user ID not found in local storage');
     }
   }
+
 
 
 

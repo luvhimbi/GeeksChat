@@ -1,11 +1,9 @@
 package com.example.basicapp.Controller;
 
-import com.example.basicapp.Dto.ChangePasswordRequest;
-import com.example.basicapp.Dto.LoginRequest;
-import com.example.basicapp.Dto.UpdatePasswordRequest;
-import com.example.basicapp.Dto.UserDto;
+import com.example.basicapp.Dto.*;
 import com.example.basicapp.Entity.Contact;
 import com.example.basicapp.Entity.User;
+import com.example.basicapp.Exception.ContactAlreadyExistsException;
 import com.example.basicapp.Services.ForgetPasswordService;
 import com.example.basicapp.Services.UserService;
 import com.example.basicapp.Exception.UserNotFoundException;
@@ -43,15 +41,21 @@ private ForgetPasswordService forgetPasswordService;
  */
 
 
-    @PostMapping("/add")
-    public ResponseEntity<Contact> addContact(@RequestBody Map<String, Object> payload) {
-        Long userId = ((Number) payload.get("user_id")).longValue();
-        Long contactedUserId = ((Number) payload.get("contactedUserId")).longValue();
-        System.out.println(contactedUserId);
-        Contact newContact = userService.addContact(userId, contactedUserId);
-        return new ResponseEntity<>(newContact, HttpStatus.CREATED);
+@PostMapping("/add")
+public ResponseEntity<?> addContact(@RequestBody Map<String, Object> payload) {
+    Long userId = ((Number) payload.get("user_id")).longValue();
+    Long contactedUserId = ((Number) payload.get("contactedUserId")).longValue();
 
+    // Check if the contact already exists
+    if (userService.contactExists(userId, contactedUserId)) {
+
+       throw  new ContactAlreadyExistsException("Contact already exists ");
     }
+
+    Contact newContact = userService.addContact(userId, contactedUserId);
+    return new ResponseEntity<>(newContact, HttpStatus.CREATED);
+}
+
 
     @GetMapping("/all/{userId}")
     public ResponseEntity<List<Contact>> getAllContacts(@PathVariable Long userId) {
@@ -106,7 +110,12 @@ private ForgetPasswordService forgetPasswordService;
         }
     }
 
-
+    @PostMapping("/verify-reset-code")
+    public boolean verifyResetCode(@RequestBody  ResetCodeDto resetCodeDto) {
+        System.out.println("checking ..." + resetCodeDto.getEnteredCode());
+        // Assuming you have a method in ForgetPasswordService to verify the reset code
+        return forgetPasswordService.verifyResetCode(resetCodeDto);
+    }
     /**
      *
      * @param it is a method for when you are resetting the password
@@ -115,9 +124,8 @@ private ForgetPasswordService forgetPasswordService;
     @PostMapping("/reset")
     public ResponseEntity<?> initiatePasswordReset(@RequestBody String email) {
         try {
-            int resetCode = forgetPasswordService.initiatePasswordReset(email);
-            // Include the reset code in the response
-            return ResponseEntity.ok(resetCode);
+            forgetPasswordService.initiatePasswordReset(email);
+            return ResponseEntity.ok().build();
         } catch (UserNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new Response("User not found."));
@@ -126,6 +134,8 @@ private ForgetPasswordService forgetPasswordService;
                     .body(new Response("Failed to initiate password reset. Please try again later."));
         }
     }
+
+
 
     /**
      *
@@ -189,8 +199,14 @@ this is a method for saving a user
         user.setEmail(userDto.getEmail());
         user.setUsername(userDto.getUsername());
         user.setPassword(userDto.getPassword());
-
-        return ResponseEntity.ok(userService.registerUser(user));
+        //create a user variable to save the state of the saved user
+       User savedUser= userService.registerUser(user);
+        UserResponse userResponseDto = new UserResponse();
+        userResponseDto.setFirstname(savedUser.getFirstname());
+        userResponseDto.setLastname(savedUser.getLastname());
+        userResponseDto.setEmail(savedUser.getEmail());
+        userResponseDto.setUsername(savedUser.getUsername());
+        return ResponseEntity.ok(userResponseDto);
     }
 
 

@@ -81,7 +81,13 @@ export class UserService {
   getAllContacts(userId: number): Observable<Contact[]> {
     return this.http.get<Contact[]>(`${this.apiUrl}/all/${userId}`);
   }
+  verifyResetCode(enteredCode: number): Observable<boolean> {
+    // Assuming you have an endpoint on your backend to verify the reset code
+    const verificationEndpoint = `${this.apiUrl}/verify-reset-code`;
 
+    // Send a POST request to the backend with the entered code
+    return this.http.post<boolean>(verificationEndpoint, { enteredCode });
+  }
 
 
   // Set selected user

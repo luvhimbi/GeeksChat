@@ -15,15 +15,13 @@ export class LoginService {
   constructor(private http: HttpClient, private loadingService: LoadingService) {}
 
   login(email: string, password: string): Observable<any> {
-    this.loadingService.showLoader(); // Show loading spinner
+
 
     const loginUrl = `${this.apiUrl}/login`;
     const body = { email, password };
 
     return this.http.post(loginUrl, body)
-      .pipe(
-        finalize(() => this.loadingService.hideLoader()) // Hide loading spinner on success or error
-      );
+     ;
   }
   isAuthenticated(): boolean {
     // Example: Check if the user is logged in
@@ -37,11 +35,12 @@ export class LoginService {
 
     return this.http.post(resetUrl, email);
   }
-  updatePassword(email: string, newPassword: string): Observable<any> {
+  updatePassword( newPassword: string): Observable<any> {
     const updatePasswordUrl = `${this.apiUrl}/update-password`;
-    const body = { email, newPassword };
 
-    return this.http.post(updatePasswordUrl, body);
+
+    // @ts-ignore
+    return this.http.post(updatePasswordUrl);
   }
 
 }

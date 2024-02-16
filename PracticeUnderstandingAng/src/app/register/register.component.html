@@ -12,15 +12,21 @@
 
     <div class="card-body">
       <div class="custom-welcome-message">
-        <p class="large-text">Welcome to <span class="text-info fw-bold">Geeks Chat!</span></p>
+        <p class="large-text">Welcome to <span class="brand fw-bold">Geeks Chat!</span></p>
         <p class="small-text">Join our community of geeks and start chatting with like-minded individuals.</p>
       </div>
       <form (submit)="onSubmit()" class="mt-3" [formGroup]="userForm">
         <div class="row">
           <div class="col-md-6">
-            <div class="custom-form-group">
+            <div class="custom-form-group"  [ngClass]="{ 'has-error': userForm.get('firstname')?.hasError('required') && userForm.get('firstname')?.touched }">
+
               <label for="firstname" class="custom-label">First Name:</label>
+              <div class="input-with-icon">
               <input type="text" id="firstname" class="custom-input" formControlName="firstname" placeholder="Enter first name" required>
+                <i *ngIf="userForm.get('firstname')?.hasError('required') && userForm.get('firstname')?.touched" class="fas fa-exclamation-triangle error-icon"></i>
+              </div>
+
+
               <div *ngIf="userForm.get('firstname')?.hasError('required') && userForm.get('firstname')?.touched" class="custom-error-message">
                 First name is required.
               </div>
@@ -28,41 +34,54 @@
           </div>
 
           <div class="col-md-6">
-            <div class="custom-form-group">
+            <div class="custom-form-group"  [ngClass]="{ 'has-error': userForm.get('lastname')?.hasError('required') && userForm.get('lastname')?.touched }">
               <label for="lastname" class="custom-label">Last Name:</label>
+              <div class="input-with-icon">
               <input type="text" id="lastname" class="custom-input" formControlName="lastname" placeholder="Enter last name" required>
-              <div *ngIf="userForm.get('lastname')?.hasError('required') && userForm.get('lastname')?.touched" class="custom-error-message">
+                <i *ngIf="userForm.get('lastname')?.hasError('required') && userForm.get('lastname')?.touched" class="fas fa-exclamation-triangle error-icon"></i>
+              </div>
+                <div *ngIf="userForm.get('lastname')?.hasError('required') && userForm.get('lastname')?.touched" class="text-danger  custom-error-message">
                 Last name is required.
               </div>
             </div>
           </div>
         </div>
 
-        <div class="custom-form-group">
+        <div class="custom-form-group" [ngClass]="{ 'has-error': userForm.get('email')?.hasError('required') && userForm.get('email')?.touched }">
           <label for="email" class="custom-label">Email:</label>
-          <input type="email" id="email" class="custom-input" formControlName="email" placeholder="Enter email address" required>
+          <div class="input-with-icon">
+            <input type="email" id="email" class="custom-input" formControlName="email" placeholder="Enter email address" required>
+            <i *ngIf="userForm.get('email')?.hasError('required') && userForm.get('email')?.touched" class="fas fa-exclamation-triangle error-icon"></i>
+          </div>
           <div *ngIf="userForm.get('email')?.hasError('required') && userForm.get('email')?.touched" class="custom-error-message">
             Email is required.
           </div>
         </div>
 
-        <div class="custom-form-group">
+
+        <div class="custom-form-group" [ngClass]="{ 'has-error': userForm.get('username')?.hasError('required') && userForm.get('username')?.touched }">
           <label for="username" class="custom-label">Username:</label>
-          <input type="text" id="username" class="custom-input" formControlName="username" placeholder="Enter username" required>
+          <div class="input-with-icon">
+            <input type="text" id="username" class="custom-input" formControlName="username" placeholder="Enter username" required>
+            <i *ngIf="userForm.get('username')?.hasError('required') && userForm.get('username')?.touched" class="fas fa-exclamation-triangle error-icon"></i>
+          </div>
           <div *ngIf="userForm.get('username')?.hasError('required') && userForm.get('username')?.touched" class="custom-error-message">
             Username is required.
           </div>
         </div>
 
-        <div class="custom-form-group">
+        <div class="custom-form-group" [ngClass]="{ 'has-error': hasError('password', 'invalidPassword') }">
           <label for="password" class="custom-label">Password:</label>
-          <input type="password" id="password" class="custom-input" formControlName="password" placeholder="Enter password" required>
-          <div *ngIf="userForm.get('password')?.hasError('required') && userForm.get('password')?.touched" class="custom-error-message">
-            Password is required.
+          <div class="input-with-icon">
+            <input type="password" id="password" class="custom-input" formControlName="password" placeholder="Enter password" required>
+
+          </div>
+          <div *ngIf="hasError('password', 'invalidPassword')" class="custom-error-message">
+            Password must be at least 10 characters long and include letters, numbers, and special characters.
           </div>
         </div>
 
-        <button type="submit" class="custom-button btn btn-primary" >Register</button>
+        <button type="submit" class="custom-button btn btn-primary" [disabled]="userForm.invalid" >Register</button>
       </form>
     </div>
   </div>

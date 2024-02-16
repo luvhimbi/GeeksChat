@@ -1,5 +1,6 @@
-/* reset-password.component.css */
+
 .custom-container {
+  font-family: 'Poppins',sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,7 +27,7 @@
 
 .custom-logo-text {
   font-size: 28px;
-  color: #007bff;
+  color: #070F2B;
   font-weight: bold;
   margin-bottom: 30px;
 }
@@ -49,11 +50,33 @@
   border: 1px solid #ccc;
   border-radius: 6px;
 }
+.input-with-icon {
+  position: relative;
+
+}
+
+.error-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  color: red;
+}
 
 .custom-button {
+  color:white;
+
+  background-color: #070F2B;
   width: 100%;
   padding: 15px;
   border: none;
   border-radius: 6px;
   cursor: pointer;
+}
+.custom-form-group.has-error input {
+  border: 1px solid red;
+}
+
+.custom-form-group.has-error .custom-error-message {
+  color: red;
 }

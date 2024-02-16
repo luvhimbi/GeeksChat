@@ -6,7 +6,21 @@ import { UserService } from "../user.service";
 import { User } from "../User";
 import Swal from "sweetalert2";
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {LoadingService} from "../loading.service";
+const passwordValidator = (control: AbstractControl): { [key: string]: boolean } | null => {
+  const value: string = control.value;
+  const hasLetter = /[a-zA-Z]/.test(value);
+  const hasNumber = /\d/.test(value);
+  const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(value);
 
+  const isLengthValid = value.length >= 10;
+
+  if (!hasLetter || !hasNumber || !hasSpecialChar || !isLengthValid) {
+    return { 'invalidPassword': true };
+  }
+
+  return null;
+};
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -16,7 +30,8 @@ export class RegisterComponent implements  OnInit{
   errorMessage: string | null = null;
   user: User = new User();
   userForm!: FormGroup;
-  constructor(private uService: UserService, private router: Router,private formBuilder: FormBuilder) {
+  isLoading: boolean = false;
+  constructor(private uService: UserService, private router: Router,private formBuilder: FormBuilder,private Loadings:LoadingService) {
 
   }
 
@@ -25,8 +40,8 @@ export class RegisterComponent implements  OnInit{
       firstname: ['', [Validators.required]],
       lastname: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      username: ['', [Validators.required]],
-      password: ['', [Validators.required]]
+      username: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9]+$/)]],
+      password: ['', [Validators.required,passwordValidator]]
     });
 
     // Patch the values from the user object into the form
@@ -38,13 +53,18 @@ export class RegisterComponent implements  OnInit{
       password: this.user.password
     });
   }
+  hasError(controlName: string, errorName: string): boolean {
+    const control = this.userForm.get(controlName);
+    // @ts-ignore
+    return control.touched && control.hasError(errorName);
+  }
 
   onSubmit(): void {
     if (this.userForm.invalid) {
       // Handle form validation errors if needed
       return;
     }
-
+this.Loadings.show();
     // Extract data from the form
     const formData = this.userForm.value;
 
@@ -54,6 +74,7 @@ export class RegisterComponent implements  OnInit{
     this.user.email = formData.email;
     this.user.username = formData.username;
     this.user.password = formData.password;
+    this.Loadings.hide();
     this.uService.register(this.user).subscribe(
       (response) => {
         console.log('Registration successful!', response);
@@ -73,6 +94,8 @@ export class RegisterComponent implements  OnInit{
         }
       }
     );
+
+
   }
 
 

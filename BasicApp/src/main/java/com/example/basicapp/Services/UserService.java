@@ -21,4 +21,5 @@ public interface UserService {
     public Conversation createNewRoom(Conversation conversation);
 
 
+    boolean contactExists(Long userId, Long contactedUserId);
 }

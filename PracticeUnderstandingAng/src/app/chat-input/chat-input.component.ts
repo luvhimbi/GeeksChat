@@ -186,6 +186,8 @@ export class ChatInputComponent implements OnInit, OnDestroy {
         };
         console.log('Sending message:', newMessage);
         this.webSocketService.sendMessage(newMessage);
+        const conversationId = this.selectedConversation!.conversationId;
+        this.messagesMap.get(conversationId)!.push(newMessage);
         this.conversationService.updateConversation(this.selectedConversation.conversationId, this.message);
         this.message = ''; // Clear the input after sending the message
       }

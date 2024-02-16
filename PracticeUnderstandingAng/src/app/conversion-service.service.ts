@@ -183,14 +183,12 @@ export class ConversionServiceService {
 
   generateConversationId(user1: number, user2: number): string {
     const sortedUsers = [user1, user2].sort((a, b) => a - b);
-    return `${sortedUsers[0]}_${sortedUsers[1]}`;
+    return `${sortedUsers[0]}${sortedUsers[1]}`;
   }
 
 
 
 
 
-  getArchivedConversations(): ConversationResponse[] {
-    return this.conversations.filter(conversation => conversation.isArchived);
-  }
+
 }

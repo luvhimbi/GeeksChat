@@ -1,6 +1,7 @@
 /* Add this CSS to your styles.css or styles.scss file */
 
 .custom-card {
+  font-family: 'Poppins',sans-serif;
   width: 100%;
   max-width: 600px; /* Adjust the max-width as needed */
   background-color: #fff;
@@ -13,7 +14,7 @@
 
 .custom-logo-text {
   font-size: 28px;
-  color: #007bff;
+  color: #070F2B;
   font-weight: bold;
   margin-bottom: 30px;
 }
@@ -22,6 +23,18 @@
   color: #721c24;
   margin-top: 8px;
 }
+.input-with-icon {
+  position: relative;
+}
+
+.error-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  color: red;
+}
+
 
 .custom-card-body {
   margin-top: 30px;
@@ -48,6 +61,10 @@
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  background-color: #070F2B;
+}
+.brand{
+  color:#070F2B;
 }
 .large-text {
   font-size: 24px;
@@ -62,4 +79,11 @@
 .small-text {
   font-size: 14px;
   color: #555;
+}
+.custom-form-group.has-error input {
+  border: 1px solid red;
+}
+
+.custom-form-group.has-error .custom-error-message {
+  color: red;
 }

@@ -5,6 +5,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
+  font-family: 'Poppins',sans-serif;
 }
 
 .custom-card {
@@ -31,7 +32,7 @@
 
 .custom-logo-text {
   font-size: 28px;
-  color: #007bff;
+  color: #070F2B;
   font-weight: bold;
   margin-bottom: 30px;
 }
@@ -82,4 +83,5 @@
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  background-color: #070F2B;
 }

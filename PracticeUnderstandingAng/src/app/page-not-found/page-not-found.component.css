@@ -4,7 +4,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Set height to 100% of the viewport height */
+  height: 80vh; /* Set height to 100% of the viewport height */
 }
 
 .card {

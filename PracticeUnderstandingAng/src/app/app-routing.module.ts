@@ -17,11 +17,13 @@ import {ContactsComponent} from "./contacts/contacts.component";
 import {ForgetpasswordPageComponent} from "./forgetpassword-page/forgetpassword-page.component";
 import {VerificationCodeComponent} from "./verification-code/verification-code.component";
 import {TodoCreateComponent} from "./todo-create/todo-create.component";
+import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
 
 
 
 // Define your routes
 const routes: Routes = [
+  {path:'',component:PageNotFoundComponent},
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'home', component: HomeComponent },

@@ -53,14 +53,13 @@ export class StompService {
   getMessages(conversationId: string): Observable<MessageDTO> {
     return this.messagesSubjectMap.get(conversationId)!.asObservable();
   }
-  togglePinConversation(conversationId: string): Observable<any> {
-    const url = `${this.baseUrl}/conversations/${conversationId}/pin`;
-    return this.http.put(url, null);
-  }
+
   sendMessage(message: MessageDTO): void {
 
-    console.log("sending part 2" + message.conversation)
-    this.stompClient.send(`/app/send-message/${message.conversation}`, {}, JSON.stringify(message));
+    console.log( message.conversation)
+    this.stompClient.send(`/topic/send-message/${message.conversation}`, {}, JSON.stringify(message));
+
+
   }
   getLastMessage(conversationId: string): Observable<string> {
     const url = `${this.baseUrl}/last/${conversationId}`;

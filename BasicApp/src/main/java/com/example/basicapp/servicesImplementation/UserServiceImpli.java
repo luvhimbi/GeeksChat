@@ -175,5 +175,12 @@ public List<User> getAllUsersExceptCurrentUser(int userId) {
         return conversationRepository.save(conversation);
     }
 
+    @Override
+    public boolean contactExists(Long userId, Long contactedUserId) {
+
+         return userRepository.existsByUserIdAndContactedUserId(userId,contactedUserId);
+
+    }
+
 
 }

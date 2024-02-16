@@ -6,7 +6,9 @@
   background-color: #1f80a8;
 }
 /* Add these styles to your CSS */
-
+.navbar-brand{
+  color:#070F2B;
+}
 nav {
   font-family: 'Poppins', sans-serif;
   transition: background-color 0.3s ease; /* Add a smooth transition effect */

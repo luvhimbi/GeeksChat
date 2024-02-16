@@ -42,6 +42,7 @@ import { ForgetpasswordPageComponent } from './forgetpassword-page/forgetpasswor
 import { VerificationCodeComponent } from './verification-code/verification-code.component';
 import { TodoCreateComponent } from './todo-create/todo-create.component';
 import { CreateTaskDialogComponent } from './create-task-dialog/create-task-dialog.component';
+import { LoadingIndicatorComponent } from './loading-indicator/loading-indicator.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { CreateTaskDialogComponent } from './create-task-dialog/create-task-dial
     ForgetpasswordPageComponent,
     VerificationCodeComponent,
     TodoCreateComponent,
-    CreateTaskDialogComponent
+    CreateTaskDialogComponent,
+    LoadingIndicatorComponent
 
 
 

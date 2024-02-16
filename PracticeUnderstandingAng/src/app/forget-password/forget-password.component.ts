@@ -28,14 +28,11 @@ export class ForgetPasswordComponent {
     console.log(this.forgetPasswordForm.get('email'))
     if (this.forgetPasswordForm.valid) {
       const userEmail = this.forgetPasswordForm.get('email')?.value;
-      console.log(userEmail);
+
 
       // Call the service to send the email to the backend
       this.forgetPasswordService.initiatePasswordReset('' + userEmail).subscribe(
         (code: number) => {
-          this.resetCode = code;
-
-          console.log('Reset code received:', code);
 
           // Add any further logic here based on the reset code
           Swal.fire({
@@ -43,10 +40,6 @@ export class ForgetPasswordComponent {
             text: 'An email has been sent with a reset code. Check your email for instructions.',
             icon: 'success',
           });
-
-          // Store the reset code and email in localStorage
-          localStorage.setItem('resetCode', code.toString());
-          localStorage.setItem('resetEmail', userEmail);
 
           this.router.navigate(['verificationCode']);
 
